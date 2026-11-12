@@ -1,0 +1,15 @@
+{
+  "name": "multiseed_s7",
+  "seed": 7,
+  "mod": "none",
+  "mod_args": {},
+  "returncode": 0,
+  "duration_s": 162.9,
+  "artifacts": {
+    "results.json": 41982,
+    "h1_main.csv": 3303,
+    "h2_channels.csv": 3382,
+    "delay_fa_curves.csv": 32405
+  },
+  "results_root": "out/runs/_roots/multiseed_s7/seed7"
+}

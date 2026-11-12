@@ -1,0 +1,17 @@
+{
+  "name": "top2_s31337",
+  "seed": 31337,
+  "mod": "fusion",
+  "mod_args": {
+    "fusion": "top2mean"
+  },
+  "returncode": 0,
+  "duration_s": 140.0,
+  "artifacts": {
+    "results.json": 41989,
+    "h1_main.csv": 3312,
+    "h2_channels.csv": 3328,
+    "delay_fa_curves.csv": 32455
+  },
+  "results_root": "out/runs/_roots/top2_s31337/seed31337"
+}

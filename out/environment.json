@@ -1,0 +1,21 @@
+{
+  "captured_at": "2026-11-12T22:55:40",
+  "python": "3.12.14",
+  "python_implementation": "CPython",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+  "cpu_count": 22,
+  "upstream_url": "https://github.com/sunnydubey1111/agent-trajectory-sentinel.git",
+  "upstream_head": "1b3e07fee53ae13407173c3ea932adb4a43e8230",
+  "packages": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0",
+    "pandas": "3.0.3",
+    "matplotlib": "3.11.0",
+    "pillow": "12.2.0",
+    "pytest": "9.1.0",
+    "torch": null
+  }
+}

@@ -1,0 +1,4 @@
+budget,detection_rate,mean_lead_all,episode_auc,realised_fa
+budget=2%,0.665,3.9625,0.847328125,0.0625
+budget=5% (base),0.6925,4.3175,0.847328125,0.06875
+budget=10%,0.7,4.7525,0.847328125,0.15

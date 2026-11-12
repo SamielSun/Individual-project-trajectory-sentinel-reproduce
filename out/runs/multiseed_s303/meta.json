@@ -1,0 +1,15 @@
+{
+  "name": "multiseed_s303",
+  "seed": 303,
+  "mod": "none",
+  "mod_args": {},
+  "returncode": 0,
+  "duration_s": 228.5,
+  "artifacts": {
+    "results.json": 41874,
+    "h1_main.csv": 3250,
+    "h2_channels.csv": 3288,
+    "delay_fa_curves.csv": 32363
+  },
+  "results_root": "out/runs/_roots/multiseed_s303/seed303"
+}

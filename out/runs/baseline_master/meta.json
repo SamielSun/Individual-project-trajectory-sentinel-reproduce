@@ -1,0 +1,15 @@
+{
+  "name": "baseline_master",
+  "seed": 20260713,
+  "mod": "none",
+  "mod_args": {},
+  "returncode": 0,
+  "duration_s": 143.8,
+  "artifacts": {
+    "results.json": 42066,
+    "h1_main.csv": 3348,
+    "h2_channels.csv": 3339,
+    "delay_fa_curves.csv": 32492
+  },
+  "results_root": "out/runs/_roots/baseline_master"
+}

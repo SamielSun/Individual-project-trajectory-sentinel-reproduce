@@ -1,0 +1,17 @@
+{
+  "name": "mean_s31337",
+  "seed": 31337,
+  "mod": "fusion",
+  "mod_args": {
+    "fusion": "mean"
+  },
+  "returncode": 0,
+  "duration_s": 145.8,
+  "artifacts": {
+    "results.json": 42022,
+    "h1_main.csv": 3302,
+    "h2_channels.csv": 3337,
+    "delay_fa_curves.csv": 32469
+  },
+  "results_root": "out/runs/_roots/mean_s31337/seed31337"
+}

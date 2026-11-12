@@ -1,0 +1,17 @@
+column,max_abs_diff
+theta,5.1890935992560117e-11
+detection_rate,0.0
+healthy_fa_rate,0.0
+early_alarm_rate,0.0
+median_delay,0.0
+median_delay_ci_lo,0.0
+median_delay_ci_hi,0.0
+median_lead,0.0
+median_lead_ci_lo,0.0
+median_lead_ci_hi,0.0
+mean_lead_all,0.0
+mean_lead_all_ci_lo,0.0
+mean_lead_all_ci_hi,0.0
+mean_budget_saved,0.0
+mean_budget_saved_all,0.0
+episode_auc,0.0

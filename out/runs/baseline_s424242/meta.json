@@ -1,0 +1,15 @@
+{
+  "name": "baseline_s424242",
+  "seed": 424242,
+  "mod": "none",
+  "mod_args": {},
+  "returncode": 0,
+  "duration_s": 144.4,
+  "artifacts": {
+    "results.json": 41904,
+    "h1_main.csv": 3290,
+    "h2_channels.csv": 3264,
+    "delay_fa_curves.csv": 32378
+  },
+  "results_root": "out/runs/_roots/baseline_s424242/seed424242"
+}

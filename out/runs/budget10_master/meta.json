@@ -1,0 +1,17 @@
+{
+  "name": "budget10_master",
+  "seed": 20260713,
+  "mod": "budget",
+  "mod_args": {
+    "budget": 0.1
+  },
+  "returncode": 0,
+  "duration_s": 134.0,
+  "artifacts": {
+    "results.json": 41993,
+    "h1_main.csv": 3262,
+    "h2_channels.csv": 3383,
+    "delay_fa_curves.csv": 32492
+  },
+  "results_root": "out/runs/_roots/budget10_master"
+}
