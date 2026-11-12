@@ -87,3 +87,18 @@ paper/
 # seconds, and the inlined HTML is ~4 MB of base64 that churns on every edit.
 deck/theory_2min.html
 deck/theory_2min.pdf
+
+# --- reproduction harness (added by this fork) ---
+.venv/
+__pycache__/
+*.pyc
+out/runs/_roots/
+out/runs/*/scores/
+out/runs/*/stdout.log
+report/*.aux
+report/*.fls
+report/*.fdb_latexmk
+report/*.out
+report/*.synctex.gz
+.env
+*.key
