@@ -68,4 +68,4 @@ silently, so it is asserted against `MULTI_MONITORS` instead of assumed).
 | numpy / scipy / pandas / sklearn / matplotlib | 2.4.6 / 1.17.1 / 3.0.3 / 1.9.0 / 3.11.0 | identical |
 | torch | 2.12.0+cpu | absent (optional import) |
 | GPU | none | none |
-| network / API | none for the synthetic study | none at run time |
+| network | available for the clone; not used during a run | same |

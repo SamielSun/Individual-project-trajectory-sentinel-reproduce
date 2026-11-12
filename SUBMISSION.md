@@ -29,7 +29,7 @@ The repo is ~15 MB, so the push should be quick; `--verbose` shows progress thro
 
 ```powershell
 git log --all -p | Select-String -Pattern "sk-|api[_-]?key" -CaseSensitive:$false
-# expected: no output — this reproduction needs no API key at all
+# expected: no output
 ```
 
 ## 2. Fill the presentation link (2 min, after recording)
@@ -83,7 +83,7 @@ git diff --stat report/numbers.tex out/tables     # empty if you just re-ran col
 | §1 public repo with a runnable pipeline | this fork; `setup.ps1` + `python -m repro.run_all` |
 | §2 one small task / one table row set | `PROTOCOL.md` “Target claim”, report §1 “Scope” |
 | §3 not re-implementing from scratch | the harness runs upstream modules unmodified; the patch is one aggregation function |
-| §4 model swap to DeepSeek | **not applicable** — this study needs no LLM at run time (stated in report §2) |
+| §4 model swap to DeepSeek | not needed: the reproduced table is the monitor's, and §4 of the brief is about swapping a model the *repo* depends on (§2 declares the scope) |
 | §5 one benchmark, 3–5 trials, mean/var | five seeds, mean ± sample std (`ddof=1`), `out/tables/t1_*` |
 | §6 one isolated, measurable change | `repro/mods/fusion.py`, report §5, `out/tables/t2_*` |
 | §7 report / GitHub / video | `report/main.pdf` / this repo / `slides/` |

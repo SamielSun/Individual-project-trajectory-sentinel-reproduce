@@ -134,8 +134,7 @@ modification of Section~\ref{sec:mod} by monkeypatching, so the working tree sta
 upstream provenance flag \texttt{git\_dirty} keeps its meaning.
 
 \textbf{Environment.} Windows 11, \CpuCount{} logical cores, CPU only, no GPU, no Docker, no database.
-The study runs from committed trajectories and artifacts, so an arm needs no served model and no
-network. Python \PyVer{} with
+Python \PyVer{} with
 numpy \NumpyVer{}, scipy \ScipyVer{}, pandas \PandasVer{}, scikit-learn \SklearnVer{}.
 The paper's artifacts were produced on CPython 3.14.5; see the deviation table below.
 One arm costs \MeanRuntime{}~s of wall clock on this machine; the full study is \NArms{} arms.
@@ -162,8 +161,8 @@ External corpora & AFTraj-2K, ATBench & not run: both require a HuggingFace down
 \end{tabularx}
 \end{table}
 
-\textbf{Cost.} Zero API calls and zero dollars. The whole reproduction is CPU-bound and offline after
-the initial clone; the only per-run nondeterminism available is wall-clock time.
+\textbf{Determinism.} Every arm is CPU-bound and seeded; the only per-run variation available is
+wall-clock time, which is why the numbers can be compared column-for-column rather than statistically.
 
 \textbf{Upstream's own gate.} With the episode corpora present (\texttt{traces/}, fetched separately
 because this fork drops them), \texttt{pytest -m "not network and not ollama"} gives
