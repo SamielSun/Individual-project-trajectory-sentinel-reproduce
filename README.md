@@ -114,4 +114,5 @@ trace-collection stack, not a number.
   the resolver stalled here.
 * **torch is optional upstream.** Without it the GRU/LSTM/TCN rows silently disappear and the table
   still renders; we assert on the row set rather than trusting the file.
-* **No secrets.** No API key is used anywhere, and `.env`/`*.key` are gitignored.
+* **No secrets committed.** `.env` and `*.key` are gitignored, and
+  `git log --all -p | Select-String "sk-"` returns nothing.

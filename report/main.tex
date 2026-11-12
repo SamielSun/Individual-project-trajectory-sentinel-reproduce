@@ -132,8 +132,9 @@ hook so the paper's committed \texttt{results/} tree is never overwritten, and (
 modification of Section~\ref{sec:mod} by monkeypatching, so the working tree stays byte-clean and the
 upstream provenance flag \texttt{git\_dirty} keeps its meaning.
 
-\textbf{Environment.} Windows 11, \CpuCount{} logical cores, CPU only, no GPU, no Docker, no database,
-\textbf{no LLM API key and no network at run time}. Python \PyVer{} with
+\textbf{Environment.} Windows 11, \CpuCount{} logical cores, CPU only, no GPU, no Docker, no database.
+The study runs from committed trajectories and artifacts, so an arm needs no served model and no
+network. Python \PyVer{} with
 numpy \NumpyVer{}, scipy \ScipyVer{}, pandas \PandasVer{}, scikit-learn \SklearnVer{}.
 The paper's artifacts were produced on CPython 3.14.5; see the deviation table below.
 One arm costs \MeanRuntime{}~s of wall clock on this machine; the full study is \NArms{} arms.
