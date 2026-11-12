@@ -41,23 +41,20 @@ repository URL too.
 The **only** placeholder left is the recorded presentation. Once the video is uploaded, replace
 
 ```
-Recorded presentation: \texttt{(link to be added --- recording in progress)}
+Recorded presentation: \texttt{(link to be added)}
 ```
 
 in `report/main.tex` (title block) with the URL, then rebuild:
 
 ```powershell
 cd report; latexmk -pdf main.tex; cd ..
-python -m slides.make_deck        # needs python-pptx
 ```
 
 ## 3. Record the presentation (20–30 min, ≤15 min video)
 
-* `slides/deck.pptx` — 12 slides, generated from the same tables as the report
-* `slides/SCRIPT.md` — word-for-word script with timestamps, 13:00 total
-
-Record with Zoom (share the deck, read the script). Keep it under 15 minutes — hard cap in the brief.
-Upload as an **unlisted** YouTube video or a OneDrive/SharePoint link, then fill `<VIDEO-LINK>`.
+`slides/deck.pptx` is the 12-slide deck. Record it with Zoom, sharing the deck, and keep the recording
+under 15 minutes, which is the hard cap in the brief. Upload as an **unlisted** YouTube video or a
+OneDrive/SharePoint link, then put the URL in the report title block.
 
 ## 4. Sanity-check the report against the artifacts (3 min)
 

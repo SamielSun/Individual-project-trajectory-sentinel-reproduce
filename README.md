@@ -21,7 +21,7 @@ The upstream README is preserved as [`UPSTREAM_README.md`](UPSTREAM_README.md).
   decomposition carries the sensitivity, the fusion rule buys precision.
 
 Report: [`report/main.pdf`](report/main.pdf) · Protocol: [`PROTOCOL.md`](PROTOCOL.md) ·
-Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides/`](slides/)
+Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides/deck.pptx`](slides/deck.pptx)
 
 ## Reproduce
 
@@ -86,7 +86,7 @@ repro/ci_gate.py           CI gate: reported metrics must match the committed ta
 repro/mods/fusion.py       the modification (max -> mean / top-2 mean)
 repro/mods/budget.py       sensitivity arm (false-alarm budget)
 report/                    LaTeX report; numbers.tex and tab_master_diff.tex are generated
-slides/                    generated deck + timecoded speaker script
+slides/                    the presentation deck
 out/                       generated artifacts (joined tables are committed; raw runs are not)
 ```
 
