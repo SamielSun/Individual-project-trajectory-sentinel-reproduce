@@ -82,9 +82,10 @@
 {\Large\bfseries Reproducing \emph{Real-Time Detection and Repair of LLM Agent Failures}}\\[2pt]
 {\large A controlled reproduction of the behavioural-monitor table, and one ablation of its fusion rule}\\[8pt]
 Name: \underline{Sun Yusu} \hfill Student ID: \underline{1155267751} \hfill FTEC5660 Reproducibility Work\\[4pt]
-\small Paper: arXiv:2608.02464 (S.~Dubey, 2026) \quad$\cdot$\quad Upstream code: \texttt{github.com/sunnydubey1111/agent-trajectory-sentinel}\\
+\small Paper: arXiv:2608.02464 (S.~Dubey, 2026)\\
+\small Upstream: \texttt{github.com/sunnydubey1111/agent-trajectory-sentinel}\\
 \small Our fork: \href{https://github.com/SamielSun/Individual-project-trajectory-sentinel-reproduce}{\texttt{github.com/SamielSun/Individual-project-trajectory-sentinel-reproduce}}\\
-\small Recorded presentation: \texttt{(link to be added --- recording in progress)}
+\small Recorded presentation: \texttt{(link to be added)}
 \end{center}
 
 \vspace{-4pt}
@@ -94,119 +95,112 @@ Name: \underline{Sun Yusu} \hfill Student ID: \underline{1155267751} \hfill FTEC
 %=====================================================================
 \section{Project summary and what we tried to reproduce}
 
-\textbf{The system.} AgentTrajectorySentinel watches a running LLM-agent episode and raises a
-calibrated alarm at \emph{derailment onset} --- steps before the task fails --- using only observable
-step telemetry. It has two layers: (i) a one-class behavioural monitor, an echo-state-network (ESN)
-ensemble with CUSUM alarms, fitted on \emph{healthy} episodes only; and (ii) deterministic
-verification that recomputes a run's stated total from the tool results it actually received. On an
-alarm the run is rolled back to a checkpoint and re-run, which is the repair arm.
-The system is a monitoring-and-repair layer over agent trajectories; it is listed in the course's
-\S8.1 (Tier A), and we treat the monitored episodes, not a task score, as the object of study.
+AgentTrajectorySentinel watches a running agent episode and raises an alarm at derailment onset, a few
+steps before the task fails, using only the telemetry each step emits. The monitor is a one-class
+echo-state-network ensemble with a CUSUM per channel, fitted on healthy episodes only. A second layer
+checks results deterministically: it recomputes a run's stated total from the tool results that run
+actually received. When either layer fires, the run is rolled back to a checkpoint and re-run, which is
+the repair arm. The project is a monitoring and repair layer over agent trajectories, listed in the
+course's \S8.1 as Tier A. Our object of study is the monitored episodes.
 
-\textbf{Target claim.} We reproduce one table --- the paper's headline
-``behavioural monitor --- synthetic testbed, five seeds'' --- and, in a second step, one of the
-mechanism claims that the table is used to support:
+We reproduce one table from the paper, its ``behavioural monitor, synthetic testbed, five seeds''
+table, and one of the mechanism claims the table is used to support:
 
 \begin{quote}\small
 ``the per-channel max-fusion wrapper, not the reservoir, carries most of the margin''
 \end{quote}
 
-\textbf{Scope.} Per \S2 of the assignment we reproduce a single table row set on a single benchmark
-(the in-process synthetic testbed), at a 5\% healthy-validation false-alarm budget, over the paper's
-five master seeds. Concretely, this means re-deriving:
+Following \S2 of the assignment, that means one row set on one benchmark (the in-process synthetic
+testbed) at a 5\% healthy-validation false-alarm budget, over the paper's five seeds:
 \texttt{esn\_cusum\_max} detection = \PaperDet, steps saved = \PaperLead, episode AUC = \PaperAuc,
-plus the comparator rows (delta-Mahalanobis, linear VAR) that make the row meaningful.
+together with the comparator rows that make the row meaningful.
 
-\textbf{Why this target.} The paper states its numbers are bit-reproducible from one master seed, and
-ships a claim ledger that recomputes every headline figure from committed tables. That makes the
-\emph{interesting} question not ``does it run'' but ``what exactly is being reproduced, and what
-silently changes the answer'' --- which is what Sections~\ref{sec:results} and~\ref{sec:concl} report.
+The paper states its numbers are bit-reproducible from a single master seed, and ships a claim ledger
+that recomputes every headline figure from committed tables. That shifts where the work is worth
+spending: not on whether the pipeline runs, but on what exactly is reproduced and what silently changes
+the answer. Sections~\ref{sec:results} and~\ref{sec:concl} take that question in turn.
 
 %=====================================================================
 \section{Setup notes}
+\label{sec:setup}
 
-\textbf{What we ran.} A pristine clone of the upstream repository at commit
-\texttt{\UpstreamHead}, into which we injected \emph{no} source edits. All experiments are launched
-through our own thin overlay (\texttt{repro/}), which (a) runs every arm in a fresh subprocess,
-(b) redirects the upstream output directory through the documented \texttt{AGENTWATCH\_RESULTS\_ROOT}
-hook so the paper's committed \texttt{results/} tree is never overwritten, and (c) applies the
-modification of Section~\ref{sec:mod} by monkeypatching, so the working tree stays byte-clean and the
-upstream provenance flag \texttt{git\_dirty} keeps its meaning.
+The repository is a clone of upstream at commit \texttt{\UpstreamHead} with no source edits. Every
+experiment goes through a thin overlay (\texttt{repro/}). The overlay runs each arm in a fresh
+subprocess, redirects the upstream output directory through the documented
+\texttt{AGENTWATCH\_RESULTS\_ROOT} hook so the committed \texttt{results/} tree is never overwritten,
+and applies the modification of Section~\ref{sec:mod} by monkeypatch. The working tree stays byte-clean,
+which keeps the \texttt{git\_dirty} provenance flag in \texttt{results.json} meaningful.
 
-\textbf{Environment.} Windows 11, \CpuCount{} logical cores, CPU only, no GPU, no Docker, no database.
-Python \PyVer{} with
-numpy \NumpyVer{}, scipy \ScipyVer{}, pandas \PandasVer{}, scikit-learn \SklearnVer{}.
-The paper's artifacts were produced on CPython 3.14.5; see the deviation table below.
-One arm costs \MeanRuntime{}~s of wall clock on this machine; the full study is \NArms{} arms.
+The machine is Windows 11 with \CpuCount{} logical cores, CPU only, no GPU, no Docker and no database.
+The interpreter is Python \PyVer{} with numpy \NumpyVer{}, scipy \ScipyVer{}, pandas \PandasVer{} and
+scikit-learn \SklearnVer{}. The paper's artifacts were produced on CPython 3.14.5; the table below says
+what that changes. Input data is the simulator in \texttt{derail/telemetry/generator.py} plus the
+committed \texttt{results/} tree, and nothing is downloaded during a run. No credential is read or
+stored; \texttt{.env} is gitignored. One arm takes \MeanRuntime{}~s of wall clock and the study is
+\NArms{} arms.
 
 \begin{table}[h]
 \centering\small
-\caption{Deviations from the paper's recorded environment, and why each is safe (or not).}
+\caption{Deviations from the paper's recorded environment, and what each one could change.}
 \begin{tabularx}{\linewidth}{@{}l l X@{}}
 \toprule
-Item & Paper & What we did, and the risk it carries \\
+Item & Paper & What we did, and what it risks \\
 \midrule
-Interpreter & CPython 3.14.5 & 3.12.14, because the 3.14 installer could not be fetched at usable
-  speed. All five package versions are the pinned ones; they ship \texttt{cp312} wheels. Risk:
-  numeric drift if any library changed a default between minor versions. Section~\ref{sec:results}
-  shows the master-seed table is reproduced to the last digit, so empirically there is none. \\
-torch baselines & \texttt{torch==2.12.0+cpu} & not installed. Consequence: the GRU/LSTM/TCN rows are
-  \emph{absent} from our five-seed table, not mismatched. We do not report those rows and do not claim
-  anything about them. \\
-Repair arm & live model calls & not run: it needs a served local model (Ollama) and the paper itself
+Interpreter & CPython 3.14.5 & 3.12.14, because the 3.14 installer would not download at usable
+  speed. All five package versions are the pinned ones and they ship \texttt{cp312} wheels. The risk is
+  numeric drift if a library changed a default between minor versions. Section~\ref{sec:results} shows
+  the master-seed table reproduced to the last digit, so on this study there is none. \\
+torch baselines & \texttt{torch==2.12.0+cpu} & not installed. The GRU/LSTM/TCN rows are therefore
+  missing from our five-seed table. We do not report those rows and make no claim about them. \\
+Repair arm & live model calls & not run. It needs a served local model (Ollama), and the paper itself
   marks those numbers as not bit-reproducible. Out of scope by \S2. \\
-External corpora & AFTraj-2K, ATBench & not run: both require a HuggingFace download and are scored on
-  corpora the repo does not redistribute. Out of scope. \\
+External corpora & AFTraj-2K, ATBench & not run. Both need a download from HuggingFace and are scored
+  on corpora the repository does not redistribute. Out of scope. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\textbf{Determinism.} Every arm is CPU-bound and seeded; the only per-run variation available is
-wall-clock time, which is why the numbers can be compared column-for-column rather than statistically.
+Every arm is CPU-bound and seeded. Wall-clock time is the only quantity that varies between runs, which
+is why the tables below compare columns rather than distributions.
 
-\textbf{Upstream's own gate.} With the episode corpora present (\texttt{traces/}, fetched separately
-because this fork drops them), \texttt{pytest -m "not network and not ollama"} gives
-\textbf{854 passed, 14 failed, 21 skipped}. Every failure is a missing optional dependency of the
-trace-collection stack (\texttt{sqlalchemy}, \texttt{langchain-core}, \texttt{autogen-core},
-\texttt{huggingface-hub}, \texttt{pyarrow}), which \texttt{requirements-core.lock.txt} deliberately
-excludes; none of them touches a number this report quotes. We report the split rather than a
-green-tick.
+With the episode corpora present (\texttt{traces/}, fetched separately because this fork drops them),
+\texttt{pytest -m "not network and not ollama"} gives 854 passed, 14 failed and 21 skipped. All
+fourteen failures are missing optional dependencies of the trace-collection stack
+(\texttt{sqlalchemy}, \texttt{langchain-core}, \texttt{autogen-core}, \texttt{huggingface-hub},
+\texttt{pyarrow}), which \texttt{requirements-core.lock.txt} excludes on purpose. None of them touches a
+number quoted here.
 
 %=====================================================================
 \section{Reproduction targets and metric definitions}
 \label{sec:targets}
 
-The paper's table is built from four quantities, all computed on the held-out \emph{test} split, with
-thresholds picked on a \emph{healthy validation} split and monitors fitted on \emph{healthy train}
-only. We adopt the definitions verbatim from the upstream evaluation module rather than re-deriving
-them:
+The table is built from four quantities, all computed on the held-out \emph{test} split, with thresholds
+picked on a \emph{healthy validation} split and monitors fitted on \emph{healthy train} only. We take
+the definitions from the upstream evaluation module instead of re-deriving them:
 
 \begin{itemize}
-\item \textbf{detection rate} --- fraction of injected-failure test episodes for which the monitor
-  raises its first alarm after onset $\tau$ and before the episode ends. It is a \emph{causal} number:
-  it uses only what was observable by the alarm step.
-\item \textbf{steps saved} (the paper's \texttt{mean\_lead\_all}) --- expected budget saved per failure
-  episode, counting a miss as $0$ rather than dropping it. This is the survivorship-free version of
-  ``how early did we catch it''.
-\item \textbf{episode AUC} --- the \emph{offline} ranking statistic: each episode's maximum score
-  against the healthy population. The paper warns, and we repeat, that this cannot be earned online and
-  rises with episode length. We report it as a ranking statistic only, never as detection.
-\item \textbf{realised false-alarm rate} --- the fraction of healthy test episodes that alarm, at a
-  threshold chosen to hit a $5\%$ budget. The budget is asked for on validation and the
-  \emph{realised} rate is measured separately; the paper is explicit that the budget is not always
-  delivered, and we keep both numbers.
+\item \textbf{detection rate}: the fraction of injected-failure test episodes whose first alarm lands
+  after onset $\tau$ and before the episode ends. It uses only what was observable by the alarm step.
+\item \textbf{steps saved} (the paper's \texttt{mean\_lead\_all}): the expected budget saved per failure
+  episode, counting a miss as $0$ instead of dropping it. This is the survivorship-free version of how
+  early the alarm arrived.
+\item \textbf{episode AUC}: an \emph{offline} ranking statistic, each episode's maximum score against
+  the healthy population. The paper warns that it cannot be earned online and that it rises with
+  episode length. We report it as a ranking statistic and never as detection.
+\item \textbf{realised false-alarm rate}: the fraction of healthy test episodes that alarm, at a
+  threshold chosen to hit a $5\%$ budget. The budget is asked for on validation while the realised rate
+  is measured, and the paper says the two do not always agree, so we keep both.
 \end{itemize}
 
 Aggregation over seeds follows the authors' rule: mean and \emph{sample} standard deviation
-($\mathrm{ddof}=1$) over the five seeds $\{20260713,\,7,\,101,\,202,\,303\}$. Because the upstream
-\texttt{run\_multiseed} hard-codes its output base, we re-implemented the aggregation in
+($\mathrm{ddof}=1$) over the five seeds $\{20260713,\,7,\,101,\,202,\,303\}$. Upstream's
+\texttt{run\_multiseed} hard-codes its output base, so we re-implemented the aggregation in
 \texttt{repro/collect.py} with the same monitor list, the same metrics and the same \texttt{ddof=1},
-and we compare our recomputed table against the committed
-\texttt{results/tables/multiseed\_summary.csv}.
+and compare the result against the committed \texttt{results/tables/multiseed\_summary.csv}.
 
 \begin{table}[h]
 \centering\small
-\caption{Target values, read from the committed artifact (not transcribed from the PDF).}
+\caption{Target values, read from the committed artifact (nothing is transcribed from the PDF).}
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
 Monitor & detection & steps saved & episode AUC & realised FA \\
@@ -217,37 +211,37 @@ Monitor & detection & steps saved & episode AUC & realised FA \\
 \end{table}
 
 %=====================================================================
-\section{Results: our numbers vs the paper's}
+\section{Results: our numbers against the paper's}
 \label{sec:results}
 
-\subsection{Single seed: the strongest form of reproduction}
+\subsection{Single seed}
 
 Running the unchanged pipeline at the master seed regenerates the paper's own master-seed artifact.
-The table below reports, for every numeric column of \texttt{results/tables/h1\_main.csv}, the maximum
-absolute difference between our file and the committed one over all monitor rows. The result is
-\textbf{\MasterExact}: the only non-zero entry is \texttt{\WorstColumn}, at \WorstDiff{} --- a
-floating-point difference in a threshold quantile, far too small to flip an alarm, and we know no
-alarm flipped because detection, false-alarm rate, steps saved and AUC are all exactly zero.
+Table~\ref{tab:masterdiff} gives, for every numeric column of \texttt{results/tables/h1\_main.csv}, the
+largest absolute difference between our file and the committed one across all monitor rows. Every
+reported metric agrees exactly. The single non-zero entry is \texttt{\WorstColumn}, at \WorstDiff, a
+floating-point difference in a threshold quantile. It is far too small to move an alarm, and no alarm
+moved: detection, false-alarm rate, steps saved and AUC are all exactly zero.
 
 \begin{table}[h]
 \centering\small
-\caption{Master-seed reproduction: max $|$ours $-$ committed$|$ per column of
-\texttt{h1\_main.csv}. Generated by \texttt{repro/collect.py}, not transcribed.}
+\caption{Master-seed reproduction: largest $|$ours $-$ committed$|$ per column of
+\texttt{h1\_main.csv}. Generated by \texttt{repro/collect.py}.}
 \label{tab:masterdiff}
 \input{tab_master_diff.tex}
 \end{table}
 
-\subsection{Five seeds: the headline table}
+\subsection{Five seeds}
 
-Table~\ref{tab:main} is the paper's headline row set, re-derived from our own five runs. The primary
-monitor lands at detection \MyDet{}, steps saved \MyLead{} and AUC \MyAuc{}, against the paper's
-\PaperDet{}, \PaperLead{} and \PaperAuc{}: differences $\DetDiff$ (detection) and $\AucDiff$ (AUC).
-All eleven monitor rows of the committed five-seed summary are reproduced, not just the headline row,
-and the agreement is exact rather than ``to printed precision''.
+Table~\ref{tab:main} re-derives the paper's headline rows from our own five runs. The primary monitor
+lands at detection \MyDet, steps saved \MyLead{} and AUC \MyAuc, against the paper's \PaperDet,
+\PaperLead{} and \PaperAuc{}: a difference of $\DetDiff$ on detection and $\AucDiff$ on AUC. The eight
+monitor rows we can run all match at full precision; the GRU/LSTM/TCN rows are absent, and
+Section~\ref{sec:setup} says why.
 
 \begin{table}[h]
 \centering\small
-\caption{Five-seed table (mean $\pm$ sample std, \texttt{ddof}=1), our re-run vs the committed
+\caption{Five-seed table (mean $\pm$ sample std, \texttt{ddof}=1), our re-run against the committed
 artifact.}
 \label{tab:main}
 \begin{tabular}{@{}l r r r@{}}
@@ -263,56 +257,52 @@ committed artifact & \PaperDet & \PaperLead & \PaperAuc \\
 \IfFileExists{figures/fig1_headline.pdf}{%
 \begin{figure}[h]\centering
 \includegraphics[width=0.8\linewidth]{figures/fig1_headline.pdf}
-\caption{Five-seed headline metrics for the primary monitor, ours vs the committed artifact. Error bars
-are $\pm1$ sample std over the five seeds.}\label{fig:head}
+\caption{Five-seed headline metrics for the primary monitor. Error bars are $\pm1$ sample std over the
+five seeds.}\label{fig:head}
 \end{figure}}{}
 
-\subsection{What did \emph{not} reproduce, and what that means}
+\subsection{What did not reproduce}
 
-Three things did not come back, and none of them is a defect of the code:
-\begin{enumerate}
-\item \textbf{Wall-clock cost (219~$\mu$s/step).} Not attempted, by construction: the paper itself says
-  this is the one figure that measures the machine and reports it moving to 252~$\mu$s on the same box.
-  We make no latency claim.
-\item \textbf{The GRU/LSTM/TCN rows.} Absent because torch is an optional import behind a
-  \texttt{try/except}. This is a \emph{coverage} gap, and the upstream design makes it silent: the
-  monitor list simply shrinks and the table still renders. We report it rather than hide it.
-\item \textbf{The corpus size.} The arXiv v1 text describes 2{,}823 episodes across 25 corpora at
-  commit \texttt{00c0673}; the current tree carries 4{,}022 across 35. Any table quoted without pinning
-  the commit can be compared against the wrong denominator. We pinned the commit
-  (\texttt{\UpstreamHead}) and record it in \texttt{out/environment.json}.
-\end{enumerate}
+Three things did not come back.
+
+Wall-clock cost, 219~$\mu$s per step, was not attempted. The paper calls it the one figure that
+measures the machine and reports it moving to 252~$\mu$s on the same box, so we make no latency claim.
+
+The GRU/LSTM/TCN rows are absent because torch is an optional import behind a \texttt{try/except}. The
+upstream design makes that gap silent: the monitor list shrinks and the table still renders. We list it
+here so that a reader comparing row counts knows why.
+
+The corpus size changed. The arXiv v1 text describes 2{,}823 episodes across 25 corpora at commit
+\texttt{00c0673}, while the tree we pinned carries 4{,}022 across 35. A table quoted without the commit
+can end up compared against the wrong denominator, so we pinned ours and record it in
+\texttt{out/environment.json}.
 
 %=====================================================================
 \section{Our modification: replacing max fusion with mean fusion}
 \label{sec:mod}
 
-\textbf{What we changed.} Exactly one thing: how the three per-channel CUSUM streams of the primary
-monitor are combined. Upstream, \texttt{ChannelMaxESNMonitor.score\_step} returns
-$\max_s \text{score}_s$ over the channels $s\in\{e,u,m\}$. We replace that aggregation with the
-arithmetic mean (and, as a graded control, the mean of the top two streams). The three sub-monitors,
-their reservoir weights, their seeds, the CUSUM, the standardiser, the split discipline and the 5\%
-threshold rule are all held fixed. The patch is applied at run time and touches only the monitor
-literally named \texttt{esn\_cusum\_max}; every other channel variant keeps \texttt{max} and therefore
-acts as an untouched control.
+The modification touches one thing: how the three per-channel CUSUM streams of the primary monitor are
+combined. Upstream, \texttt{ChannelMaxESNMonitor.score\_step} returns the maximum over the channels
+$\{e,u,m\}$. We use the arithmetic mean, and the mean of the top two streams as a graded control. The
+three sub-monitors, their reservoir weights and seeds, the CUSUM, the standardiser, the split discipline
+and the 5\% threshold rule all stay fixed. The patch applies at run time and touches only the monitor
+named \texttt{esn\_cusum\_max}; the other channel variants keep \texttt{max} and serve as untouched
+controls.
 
-\textbf{Why this change.} It is the cheapest direct test of the mechanism claim quoted in
-\S1. Max fusion is \emph{supposed} to matter because a shift confined to one channel (the paper's
-example: grounding loss lives in 4 of 43 uncertainty dimensions) survives a max and is diluted by a
-mean. The prediction is therefore falsifiable in one direction: if the claim is right, replacing max
-with mean must cost a large part of the margin. Everything else --- the three sub-monitors, their
-reservoir weights and seeds, the CUSUM, the standardiser, the split discipline and the 5\% threshold
-rule --- is held fixed, so any difference is attributable to the aggregation rule alone.
+Max fusion is supposed to matter because a shift confined to one channel survives a maximum and is
+diluted by a mean, and the paper's example is grounding loss, which lives in 4 of 43 uncertainty
+dimensions. That makes the claim falsifiable in one direction: if the max carries the margin, removing
+it has to cost a large part of it.
 
-\textbf{Design.} Paired comparison on identical data: both arms run on the same two disposable seeds
-(\texttt{424242}, \texttt{31337}), which the published study never uses. Same code, same machine, same
-pinned environment; the only difference is the aggregation function.
+Both arms run on the same two disposable seeds (\texttt{424242}, \texttt{31337}), which the published
+study never uses. Same code, same machine, same pinned environment; only the aggregation function
+differs.
 
 \begin{table}[h]
 \centering\small
-\caption{Fusion ablation on the primary monitor, paired over two unseen seeds (mean over the two).
-Control rows: the other \CtrlRows{} monitor rows the patch cannot touch --- \CtrlIdentical{}
-bit-identical.}
+\caption{Fusion ablation on the primary monitor, paired over two unseen seeds and averaged over the
+two. Control rows: the patch cannot touch the other \CtrlRows{} monitor rows, and \CtrlIdentical{} of
+them stay bit-identical.}
 \label{tab:mod}
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -320,7 +310,7 @@ Aggregation & detection & steps saved & episode AUC & realised FA \\
 \midrule
 max (baseline) & \ModBaseDet & \ModBaseLead & \ModBaseAuc & \ModBaseFa \\
 mean & \ModMeanDet & \ModMeanLead & \ModMeanAuc & \ModMeanFa \\
-\quad $\Delta$ vs max & \ModDeltaDet & \ModDeltaLead & \ModDeltaAuc & \ModDeltaFa \\
+\quad $\Delta$ against max & \ModDeltaDet & \ModDeltaLead & \ModDeltaAuc & \ModDeltaFa \\
 top-2 mean & \ModTopTwoDet & \ModTopTwoLead & \ModTopTwoAuc & --- \\
 \bottomrule
 \end{tabular}
@@ -333,60 +323,55 @@ top-2 mean & \ModTopTwoDet & \ModTopTwoLead & \ModTopTwoAuc & --- \\
 seeds.}\label{fig:mod}
 \end{figure}}{}
 
-\textbf{Result: the prediction fails, in an informative way.} Replacing max with a mean does
-\emph{not} cost detection (from \ModBaseDet{} to \ModMeanDet{}, $\ModDeltaDet$), does not cost steps
-saved ($\ModDeltaLead$), and costs less than half a point of ranking AUC ($\ModDeltaAuc$). What it does
-degrade is false-alarm discipline: at the same nominal 5\% budget the realised healthy false-alarm rate
-moves from \ModBaseFa{} to \ModMeanFa{} ($\ModDeltaFa$). Meanwhile every control row is unchanged
-(\CtrlIdentical{}/\CtrlRows{}), which is what shows the change is isolated rather than a global
-perturbation.
+The predicted cost does not appear. Replacing max with a mean moves detection from \ModBaseDet{} to
+\ModMeanDet{} ($\ModDeltaDet$), adds $\ModDeltaLead$ steps saved and gives up $\ModDeltaAuc$ of ranking
+AUC. What it does cost is false-alarm discipline: at the same nominal 5\% budget the realised healthy
+false-alarm rate rises from \ModBaseFa{} to \ModMeanFa{} ($\ModDeltaFa$). All \CtrlIdentical{} control
+rows stay unchanged, which is the check that the patch is isolated.
 
-So the margin the paper attributes to the \emph{max} is not carried by the max: the per-channel
-decomposition does the work, and the fusion rule buys discipline rather than sensitivity. That is a
-narrower claim than ``the wrapper carries most of the margin'', and it is the one the data supports.
+So the margin the paper attributes to the max is not carried by the max. The per-channel decomposition
+produces the sensitivity, and the fusion rule buys precision. Two paired seeds support that narrower
+claim and nothing wider; settling it on the published five seeds would take a re-run.
 
 %=====================================================================
 \section{Debug diary}
 
 \begin{enumerate}
-\item \textbf{The pinned interpreter is not the one the wheels target.}
-  \emph{Symptom:} \texttt{pip install -r requirements-core.lock.txt} sat for 15+ minutes producing no
-  files. \emph{First hypothesis:} missing \texttt{cp312} wheels, i.e.\ a source build.
-  \emph{Check:} querying the PyPI JSON API for each pin showed all five ship \texttt{cp312-win\_amd64}
-  wheels, so wheels were not the problem. \emph{Fix:} keep the pins, and (next entry) bypass the
-  resolver.
+\item The pinned interpreter is not the one the wheels target.
+  \texttt{pip install -r requirements-core.lock.txt} sat for more than fifteen minutes without writing
+  a file. My first guess was missing \texttt{cp312} wheels, which would mean a source build. Querying
+  the PyPI JSON API for each pin showed that all five ship \texttt{cp312-win\_amd64} wheels, so the
+  wheels were not the problem. I kept the pins and dealt with the resolver instead.
 
-\item \textbf{pip's resolver, not the network, was the bottleneck.}
-  \emph{Symptom:} even a single-package install of \texttt{scipy} stalled, while \texttt{curl} pulled
-  the same wheel at $\sim$550~kB/s. \emph{Fix:} install top-level pins with \texttt{--no-deps} and add
-  the transitive dependencies explicitly; \texttt{scipy} then installed in 45~s.
+\item The resolver was the bottleneck.
+  Even a single-package install of \texttt{scipy} stalled, while \texttt{curl} pulled the same wheel at
+  about 550~kB/s. Installing the top-level pins with \texttt{--no-deps} and naming the transitive
+  dependencies explicitly brought \texttt{scipy} in 45~s.
 
-\item \textbf{The ``core'' lock is not closed under imports.}
-  \emph{Symptom:} \texttt{import sklearn} failed on \texttt{cloudpickle}, then on \texttt{narwhals};
-  \texttt{matplotlib} failed on \texttt{PIL}; \texttt{pytest} on \texttt{pygments}.
-  \emph{Cause:} \texttt{requirements-core.lock.txt} pins the top-level study stack, not the transitive
-  closure. \emph{Fix:} add each missing package and record the resolved versions in
-  \texttt{out/environment.json} so the deviation is visible rather than implicit.
+\item The ``core'' lock is not closed under imports.
+  \texttt{import sklearn} failed on \texttt{cloudpickle}, then on \texttt{narwhals}; \texttt{matplotlib}
+  failed on \texttt{PIL} and \texttt{pytest} on \texttt{pygments}. The lock file pins the study stack,
+  not its transitive closure. I added each missing package and let \texttt{out/environment.json} record
+  the versions actually installed.
 
-\item \textbf{A Python 3.14 installer that would not arrive.}
-  \emph{Symptom:} the python.org installer downloaded at $\sim$21~kB/s and timed out at 12.7/30.3~MB.
-  \emph{Decision:} stay on 3.12 and \emph{verify} the consequence empirically instead of assuming it
-  (Table~\ref{tab:masterdiff}).
+\item A Python 3.14 installer that would not arrive.
+  The python.org installer downloaded at about 21~kB/s and timed out at 12.7 of 30.3~MB. I stayed on
+  3.12 and tested the consequence instead of assuming it, which is what Table~\ref{tab:masterdiff}
+  reports.
 
-\item \textbf{Re-running must not overwrite the paper's own artifact.}
-  \emph{Symptom:} the study writes into \texttt{results/}, the very directory the paper's committed
-  tables live in --- a rerun would destroy the thing we compare against.
-  \emph{Fix:} the upstream module exposes \texttt{AGENTWATCH\_RESULTS\_ROOT}; every arm is redirected
-  there, so ``ours'' and ``theirs'' stay two independent artifacts.
+\item Re-running must not overwrite the paper's own artifact.
+  The study writes into \texttt{results/}, the directory holding the committed tables this report
+  compares against, so a rerun would have destroyed the comparison. Upstream exposes
+  \texttt{AGENTWATCH\_RESULTS\_ROOT}, and every arm is redirected there; ours and theirs stay two
+  independent artifacts.
 
-\item \textbf{A captured stdout pipe deadlocked one arm.}
-  \emph{Symptom:} one arm burned minutes of wall clock with the child alive and no artifacts written.
-  \emph{Fix:} send the child's output straight to a file, and add a per-arm timeout so a hang can never
-  silently eat the schedule.
+\item A captured stdout pipe deadlocked one arm.
+  One arm spent minutes of wall clock with the child process alive and no artifacts written. Sending
+  the child's output straight to a file, plus a per-arm timeout, fixed it.
 
-\item \textbf{Silent shrinkage is the real trap.}
-  \emph{Observation:} without torch the monitor list quietly loses three rows and the table still
-  renders; nothing errors. \emph{Lesson:} assert on the row set, not on the file existing.
+\item Silent shrinkage.
+  Without torch the monitor list quietly loses three rows and the table still renders, with no error
+  anywhere. The lesson is to assert on the row set instead of trusting that a file exists.
 \end{enumerate}
 
 %=====================================================================
@@ -395,31 +380,28 @@ narrower claim than ``the wrapper carries most of the margin'', and it is the on
 
 \begin{itemize}
 \item \textbf{Fully reproducible:} the behavioural-monitor table. At the master seed our
-  \texttt{h1\_main.csv} is identical column-for-column to the committed one (\MasterExact); over five
-  seeds every monitor row of the five-seed summary matches the committed values to the last printed
-  digit (primary monitor: detection \MyDet{} vs \PaperDet). The reproduction is deterministic,
-  CPU-only, offline and free --- an unusually strong result for an agent-systems paper.
-\item \textbf{Not supported by our ablation:} the attribution of the margin to the \emph{max} rule.
-  Replacing max with a mean leaves detection at \ModMeanDet{} (from \ModBaseDet{}) and costs
-  $\ModDeltaAuc$ AUC, while the realised false-alarm rate moves \ModDeltaFa{}; controls are untouched
-  (\CtrlIdentical{}/\CtrlRows{}). What the ablation supports is narrower: the per-channel decomposition
-  produces the sensitivity, and the fusion rule buys false-alarm discipline. With two paired seeds this
-  is an effect size, not a re-derivation of a published number, and we state it as such.
-\item \textbf{Not reproduced (and not attempted):} wall-clock latency, the GRU/LSTM/TCN rows, the live
-  repair arm, the two external corpora. Each is a documented coverage gap, per \S2 of the assignment.
-\item \textbf{Hidden assumptions that bite.} (i) the paper's v1 corpus and the current tree have
-  different sizes --- quote the commit; (ii) \texttt{episode\_auc} is an offline ranking statistic and
-  reporting it as detection inflates the result; (iii) the realised false-alarm rate is not the budget;
-  (iv) an optional dependency silently changes the table's row set.
-\item \textbf{Recommendation to future users.} Pin the commit, redirect the results root, install with
-  \texttt{--no-deps} plus an explicit transitive list, and diff the row set before trusting a table.
+  \texttt{h1\_main.csv} is identical column for column to the committed one; over five seeds every
+  monitor row we can run matches, including the primary monitor at detection \MyDet{} against the
+  paper's \PaperDet. The reproduction is deterministic and CPU-only.
+\item \textbf{Not supported by our ablation:} the attribution of the margin to the max rule. Replacing
+  max with a mean leaves detection at \ModMeanDet{} (from \ModBaseDet{}) and costs $\ModDeltaAuc$ AUC,
+  while the realised false-alarm rate moves \ModDeltaFa; the controls are untouched. What the ablation
+  supports is narrower: the per-channel decomposition produces the sensitivity, and the fusion rule
+  buys false-alarm discipline.
+\item \textbf{Not reproduced:} wall-clock latency, the GRU/LSTM/TCN rows, the live repair arm and the
+  two external corpora. Each is a coverage gap declared in \S2 of the report, not a failure of the code.
+\item \textbf{Hidden assumptions.} The paper's v1 corpus and the current tree differ in size, so quote
+  the commit. \texttt{episode\_auc} is an offline ranking statistic, and reporting it as detection
+  inflates the result. The realised false-alarm rate is not the budget. An optional dependency can
+  change the row set without an error.
+\item \textbf{For the next person.} Pin the commit, redirect the results root, install with
+  \texttt{--no-deps} and an explicit transitive list, and diff the row set before trusting a table.
 \end{itemize}
 
 \vspace{4pt}
 \small
-\textbf{Reproducibility statement.} Every number in this report is generated by the harness in our
-repository: \texttt{python -m repro.env}, \texttt{python -m repro.run\_all}, \texttt{python -m
-repro.collect} and \texttt{python -m repro.figures} regenerate all of it from scratch (\NArms{} arms,
-$\approx$\MeanRuntime{}~s each). No number here is hand-transcribed.
+Every number in this report comes from the harness in the repository: \texttt{python -m repro.env},
+\texttt{python -m repro.run\_all}, \texttt{python -m repro.collect} and \texttt{python -m
+repro.figures} regenerate it from scratch (\NArms{} arms, about \MeanRuntime{}~s each).
 
 \end{document}

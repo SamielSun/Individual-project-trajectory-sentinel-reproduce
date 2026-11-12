@@ -12,7 +12,8 @@ The upstream README is preserved as [`UPSTREAM_README.md`](UPSTREAM_README.md).
   `esn_cusum_max` detection / steps saved / episode AUC, over the paper's five seeds.
 * **Result:** reproduced exactly. At the master seed every reported metric is identical to the
   committed artifact (the only non-zero difference is the alarm threshold θ, at 5e-11); over five
-  seeds every monitor row of the committed summary matches.
+  seeds the eight monitor rows we can run match the committed summary, and the GRU/LSTM/TCN rows are
+  absent because torch is an optional import we did not install.
 * **Modification:** replace the per-channel **max** fusion with a **mean** (and top-2 mean) on the
   primary monitor only, paired on two seeds the paper never uses. Detection does **not** drop
   (0.702 → 0.714); what drops is false-alarm discipline (realised FA 0.025 → 0.037). The paper's
