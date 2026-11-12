@@ -1,0 +1,64 @@
+name: reproduce
+
+# Replaces the upstream `ci` workflow in this fork.
+#
+# Upstream's CI asserts on the episode corpora (it builds the HuggingFace
+# payload from traces/, verifies CHECKSUMS.md over traces/ and assets/, and runs
+# the tests that open traces/*/manifest.json). This fork ships without those two
+# directories -- 79 MB of episode JSONL plus README media that no number in the
+# reproduction reads -- so that workflow cannot pass here by construction.
+#
+# What is checked instead is the thing this fork claims: that the master-seed
+# table reproduces the committed artifact exactly. One arm, ~2.5 minutes, no
+# network at run time, no API key.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install the pinned study stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            numpy==2.4.6 scipy==1.17.1 scikit-learn==1.9.0 \
+            pandas==3.0.3 matplotlib==3.11.0 pillow==12.2.0
+
+      - name: Record the environment
+        run: python -m repro.env
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Run the master-seed arm
+        run: python -m repro.run_all --only baseline_master
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Join ours vs committed
+        run: python -m repro.collect
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Gate - every reported metric must match exactly
+        run: python -m repro.ci_gate
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Upload the joined tables
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repro-tables
+          path: out/tables
+          if-no-files-found: warn

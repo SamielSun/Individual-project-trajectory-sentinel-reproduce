@@ -1,3 +1,5 @@
+![reproduce](https://github.com/SamielSun/Individual-project-trajectory-sentinel-reproduce/actions/workflows/reproduce.yml/badge.svg)
+
 # Reproduction harness — agent-trajectory-sentinel
 
 A **fork** of [`sunnydubey1111/agent-trajectory-sentinel`](https://github.com/sunnydubey1111/agent-trajectory-sentinel)
@@ -8,12 +10,15 @@ The upstream README is preserved as [`UPSTREAM_README.md`](UPSTREAM_README.md).
 
 * **Target:** the paper's headline table *“behavioural monitor — synthetic testbed, five seeds”* —
   `esn_cusum_max` detection / steps saved / episode AUC, over the paper's five seeds.
-* **Result:** reproduced. At the master seed every reported metric is identical to the committed
-  artifact; the only non-zero difference is the alarm threshold θ, at 5e-11. Over five seeds the
-  headline row agrees at the printed precision.
+* **Result:** reproduced exactly. At the master seed every reported metric is identical to the
+  committed artifact (the only non-zero difference is the alarm threshold θ, at 5e-11); over five
+  seeds every monitor row of the committed summary matches.
 * **Modification:** replace the per-channel **max** fusion with a **mean** (and top-2 mean) on the
-  primary monitor only, paired on two seeds the paper never uses.
-* **Cost:** 0 LLM calls, \$0, CPU only, offline. 13 arms at ~2.5 min each.
+  primary monitor only, paired on two seeds the paper never uses. Detection does **not** drop
+  (0.702 → 0.714); what drops is false-alarm discipline (realised FA 0.025 → 0.037). The paper's
+  attribution of the margin to the max rule is therefore **not supported** — the per-channel
+  decomposition carries the sensitivity, the fusion rule buys precision.
+* **Cost:** 0 LLM calls, \$0, CPU only, offline. 13 arms at ~2.4 min each.
 
 Report: [`report/main.pdf`](report/main.pdf) · Protocol: [`PROTOCOL.md`](PROTOCOL.md) ·
 Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides/`](slides/)
@@ -21,7 +26,7 @@ Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides
 ## Reproduce
 
 ```powershell
-pwsh -File setup.ps1                        # build .venv, install the pinned stack
+pwsh -File setup.ps1                        # or: powershell -ExecutionPolicy Bypass -File setup.ps1
 $env:PYTHONPATH = (Get-Location)
 .\.venv\Scripts\python.exe -m repro.env     # record interpreter, pins, CPU -> out/environment.json
 .\.venv\Scripts\python.exe -m repro.run_all # 13 arms -> out/runs/
@@ -30,7 +35,8 @@ $env:PYTHONPATH = (Get-Location)
 cd report; latexmk -pdf main.tex
 ```
 
-`python -m repro.run_all --plan` lists the arms without running anything.
+`python -m repro.run_all --plan` lists the arms without running anything. On Linux/macOS the same
+commands work with `python` from the venv instead of `.\.venv\Scripts\python.exe`.
 
 ## What is compared
 
@@ -62,7 +68,7 @@ return float(np.mean([sub.score_step(x_t) for sub in self.subs]))
 
 Applied by monkeypatch inside a short-lived subprocess, so the upstream sources stay byte-clean and
 `results.json`'s `git_dirty` provenance flag keeps its meaning. Every other monitor keeps `max` and is
-an untouched control — `out/tables/t2b_controls_identical.csv` records that they stay bit-identical
+an untouched control — `out/tables/t2b_controls_identical.csv` records that all 36 stay bit-identical
 under the patch.
 
 ## Repository layout
@@ -76,12 +82,26 @@ repro/run_all.py           all 13 arms, each in its own subprocess, with provena
 repro/collect.py           join ours vs committed -> out/tables/*.csv + report/numbers.tex
 repro/figures.py           report figures
 repro/env.py               environment capture
+repro/ci_gate.py           CI gate: reported metrics must match the committed table exactly
 repro/mods/fusion.py       the modification (max -> mean / top-2 mean)
 repro/mods/budget.py       sensitivity arm (false-alarm budget)
 report/                    LaTeX report; numbers.tex and tab_master_diff.tex are generated
 slides/                    generated deck + timecoded speaker script
 out/                       generated artifacts (joined tables are committed; raw runs are not)
 ```
+
+## CI
+
+This fork replaces upstream's `ci` workflow. That one builds the HuggingFace payload from `traces/`,
+verifies `CHECKSUMS.md` over `traces/` and `assets/`, and runs the 62 tests that open
+`traces/*/manifest.json` — all of which this fork ships without, by design. What runs instead is
+[`reproduce.yml`](.github/workflows/reproduce.yml): install the pinned stack, run the master-seed arm,
+join our numbers against the committed artifact, and fail unless every reported metric matches exactly
+(`python -m repro.ci_gate`). ~4 minutes, no API key, no network at run time.
+
+The upstream gate itself is reported honestly in the report (§2): with the corpora present it is 854
+passed / 14 failed / 21 skipped, and every failure is a missing optional dependency of the
+trace-collection stack, not a number.
 
 ## Notes and gotchas
 
@@ -90,8 +110,9 @@ out/                       generated artifacts (joined tables are committed; raw
   upstream tests that read `traces/*/manifest.json` cannot run here; `PROTOCOL.md` declares that
   instead of hiding it.
 * **Python 3.12 is fine.** Upstream's artifacts were produced on 3.14.5; every pinned package ships a
-  `cp312` wheel, and the master-seed table reproduces digit-for-digit on 3.12.14 (report §4).
-* **Install with `--no-deps` + an explicit transitive list** — see the header of `setup.ps1`.
+  `cp312` wheel, and the master-seed table reproduces digit-for-digit on 3.12 (report §4).
+* **Install with `--no-deps` + an explicit transitive list** — see the header of `setup.ps1` for why
+  the resolver stalled here.
 * **torch is optional upstream.** Without it the GRU/LSTM/TCN rows silently disappear and the table
   still renders; we assert on the row set rather than trusting the file.
 * **No secrets.** No API key is used anywhere, and `.env`/`*.key` are gitignored.
