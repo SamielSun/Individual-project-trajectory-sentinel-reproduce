@@ -101,7 +101,7 @@ echo-state-network ensemble with a CUSUM per channel, fitted on healthy episodes
 checks results deterministically: it recomputes a run's stated total from the tool results that run
 actually received. When either layer fires, the run is rolled back to a checkpoint and re-run, which is
 the repair arm. The project is a monitoring and repair layer over agent trajectories, listed in the
-course's \S8.1 as Tier A. Our object of study is the monitored episodes.
+course's Section 8.1 as Tier A. Our object of study is the monitored episodes.
 
 We reproduce one table from the paper, its ``behavioural monitor, synthetic testbed, five seeds''
 table, and one of the mechanism claims the table is used to support:
@@ -110,7 +110,7 @@ table, and one of the mechanism claims the table is used to support:
 ``the per-channel max-fusion wrapper, not the reservoir, carries most of the margin''
 \end{quote}
 
-Following \S2 of the assignment, that means one row set on one benchmark (the in-process synthetic
+Following Section 2 of the assignment, that means one row set on one benchmark (the in-process synthetic
 testbed) at a 5\% healthy-validation false-alarm budget, over the paper's five seeds:
 \texttt{esn\_cusum\_max} detection = \PaperDet, steps saved = \PaperLead, episode AUC = \PaperAuc,
 together with the comparator rows that make the row meaningful.
@@ -153,7 +153,7 @@ Interpreter & CPython 3.14.5 & 3.12.14, because the 3.14 installer would not dow
 torch baselines & \texttt{torch==2.12.0+cpu} & not installed. The GRU/LSTM/TCN rows are therefore
   missing from our five-seed table. We do not report those rows and make no claim about them. \\
 Repair arm & live model calls & not run. It needs a served local model (Ollama), and the paper itself
-  marks those numbers as not bit-reproducible. Out of scope by \S2. \\
+  marks those numbers as not bit-reproducible. Out of scope by Section 2. \\
 External corpora & AFTraj-2K, ATBench & not run. Both need a download from HuggingFace and are scored
   on corpora the repository does not redistribute. Out of scope. \\
 \bottomrule
@@ -337,41 +337,44 @@ claim and nothing wider; settling it on the published five seeds would take a re
 \section{Debug diary}
 
 \begin{enumerate}
-\item The pinned interpreter is not the one the wheels target.
-  \texttt{pip install -r requirements-core.lock.txt} sat for more than fifteen minutes without writing
-  a file. My first guess was missing \texttt{cp312} wheels, which would mean a source build. Querying
-  the PyPI JSON API for each pin showed that all five ship \texttt{cp312-win\_amd64} wheels, so the
-  wheels were not the problem. I kept the pins and dealt with the resolver instead.
+\item Re-running the study would have destroyed the thing it is compared against.
+  The study writes into \texttt{results/}, which is exactly where the paper's committed tables live, so
+  the first run would have overwritten the reference numbers. Upstream exposes
+  \texttt{AGENTWATCH\_RESULTS\_ROOT} for sensitivity runs; every arm is redirected through it, and ours
+  and theirs stay two independent artifacts.
 
-\item The resolver was the bottleneck.
-  Even a single-package install of \texttt{scipy} stalled, while \texttt{curl} pulled the same wheel at
-  about 550~kB/s. Installing the top-level pins with \texttt{--no-deps} and naming the transitive
-  dependencies explicitly brought \texttt{scipy} in 45~s.
+\item The five-seed summary could not be reused as it ships.
+  \texttt{run\_multiseed} hard-codes \texttt{results/} as its base and only forwards \texttt{--seed}, so
+  once the arms are redirected it looks for results that are not there. I re-implemented the
+  aggregation in \texttt{repro/collect.py} with the authors' rule (mean and sample standard deviation,
+  \texttt{ddof=1}) and the same monitor list, then checked the output against the committed
+  \texttt{multiseed\_summary.csv}: every row matched, which is also the check that my re-implementation
+  was faithful.
 
-\item The ``core'' lock is not closed under imports.
-  \texttt{import sklearn} failed on \texttt{cloudpickle}, then on \texttt{narwhals}; \texttt{matplotlib}
-  failed on \texttt{PIL} and \texttt{pytest} on \texttt{pygments}. The lock file pins the study stack,
-  not its transitive closure. I added each missing package and let \texttt{out/environment.json} record
-  the versions actually installed.
+\item The upstream test gate expects corpora this fork does not ship.
+  A sparse checkout without \texttt{traces/} left 62 tests failing on a missing
+  \texttt{manifest.json}. Fetching the corpora brought the gate to 854 passed, 14 failed and 21
+  skipped, and all fourteen remaining failures are optional dependencies of the trace-collection stack.
+  The lesson is that a fork cannot inherit a test gate without inheriting the data behind it.
 
-\item A Python 3.14 installer that would not arrive.
-  The python.org installer downloaded at about 21~kB/s and timed out at 12.7 of 30.3~MB. I stayed on
-  3.12 and tested the consequence instead of assuming it, which is what Table~\ref{tab:masterdiff}
-  reports.
+\item Silent row loss.
+  Without torch the monitor list loses the GRU, LSTM and TCN rows and the table still renders, with no
+  error anywhere. A reader comparing row counts would see three missing rows and no explanation. The
+  fix is to assert on the row set instead of trusting that a file exists, which is what
+  \texttt{repro/ci\_gate.py} now does.
 
-\item Re-running must not overwrite the paper's own artifact.
-  The study writes into \texttt{results/}, the directory holding the committed tables this report
-  compares against, so a rerun would have destroyed the comparison. Upstream exposes
-  \texttt{AGENTWATCH\_RESULTS\_ROOT}, and every arm is redirected there; ours and theirs stay two
-  independent artifacts.
+\item I over-claimed the coverage in a draft of this report.
+  An earlier version said all eleven monitor rows of the five-seed summary matched. Counting the
+  columns showed that eleven rows exist but only eight carry values on our side; the other three are
+  the torch baselines. The claim is now eight rows plus a stated gap, and the same correction went into
+  the README and the deck.
 
-\item A captured stdout pipe deadlocked one arm.
-  One arm spent minutes of wall clock with the child process alive and no artifacts written. Sending
-  the child's output straight to a file, plus a per-arm timeout, fixed it.
-
-\item Silent shrinkage.
-  Without torch the monitor list quietly loses three rows and the table still renders, with no error
-  anywhere. The lesson is to assert on the row set instead of trusting that a file exists.
+\item ``Exact'' needed a definition before it could be claimed.
+  Every reported metric reproduces to zero, but the alarm threshold $\theta$ differs by
+  $5.2\times10^{-11}$, because it is a float quantile of the healthy scores. Reporting the table as
+  exact therefore required deciding what has to be zero: the metrics, not the threshold. Since
+  detection, false-alarm rate, steps saved and AUC are all zero, no alarm changed side, so the
+  distinction is checkable rather than rhetorical.
 \end{enumerate}
 
 %=====================================================================
@@ -389,7 +392,7 @@ claim and nothing wider; settling it on the published five seeds would take a re
   supports is narrower: the per-channel decomposition produces the sensitivity, and the fusion rule
   buys false-alarm discipline.
 \item \textbf{Not reproduced:} wall-clock latency, the GRU/LSTM/TCN rows, the live repair arm and the
-  two external corpora. Each is a coverage gap declared in \S2 of the report, not a failure of the code.
+  two external corpora. Each is a coverage gap declared in Section 2 of this report, not a failure of the code.
 \item \textbf{Hidden assumptions.} The paper's v1 corpus and the current tree differ in size, so quote
   the commit. \texttt{episode\_auc} is an offline ranking statistic, and reporting it as detection
   inflates the result. The realised false-alarm rate is not the budget. An optional dependency can
