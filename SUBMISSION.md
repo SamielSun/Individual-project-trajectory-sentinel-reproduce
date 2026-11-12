@@ -52,7 +52,7 @@ cd report; latexmk -pdf main.tex; cd ..
 
 ## 3. Record the presentation (20–30 min, ≤15 min video)
 
-`slides/deck.pptx` is the 12-slide deck. Record it with Zoom, sharing the deck, and keep the recording
+`slides/presentation.pptx` is the 12-slide deck. Record it with Zoom, sharing the deck, and keep the recording
 under 15 minutes, which is the hard cap in the brief. Upload as an **unlisted** YouTube video or a
 OneDrive/SharePoint link, then put the URL in the report title block.
 
