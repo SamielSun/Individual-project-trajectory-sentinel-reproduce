@@ -18,7 +18,6 @@ The upstream README is preserved as [`UPSTREAM_README.md`](UPSTREAM_README.md).
   (0.702 → 0.714); what drops is false-alarm discipline (realised FA 0.025 → 0.037). The paper's
   attribution of the margin to the max rule is therefore **not supported** — the per-channel
   decomposition carries the sensitivity, the fusion rule buys precision.
-* **Cost:** 0 LLM calls, \$0, CPU only, offline. 13 arms at ~2.4 min each.
 
 Report: [`report/main.pdf`](report/main.pdf) · Protocol: [`PROTOCOL.md`](PROTOCOL.md) ·
 Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides/`](slides/)
@@ -97,7 +96,7 @@ verifies `CHECKSUMS.md` over `traces/` and `assets/`, and runs the 62 tests that
 `traces/*/manifest.json` — all of which this fork ships without, by design. What runs instead is
 [`reproduce.yml`](.github/workflows/reproduce.yml): install the pinned stack, run the master-seed arm,
 join our numbers against the committed artifact, and fail unless every reported metric matches exactly
-(`python -m repro.ci_gate`). ~4 minutes, no API key, no network at run time.
+(`python -m repro.ci_gate`). ~4 minutes on a standard runner.
 
 The upstream gate itself is reported honestly in the report (§2): with the corpora present it is 854
 passed / 14 failed / 21 skipped, and every failure is a missing optional dependency of the
