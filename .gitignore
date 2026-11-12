@@ -102,3 +102,6 @@ report/*.out
 report/*.synctex.gz
 .env
 *.key
+
+# Office lock files
+~$*

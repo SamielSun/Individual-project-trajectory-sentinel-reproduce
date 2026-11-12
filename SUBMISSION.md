@@ -32,23 +32,13 @@ git log --all -p | Select-String -Pattern "sk-|api[_-]?key" -CaseSensitive:$fals
 # expected: no output
 ```
 
-## 2. Fill the presentation link (2 min, after recording)
+## 2. The presentation is already linked
 
-The repository link and the author line are already in: `report/main.tex` carries
-`Name: Sun Yusu`, `Student ID: 1155267751` and the fork URL, and the deck's last slide carries the
-repository URL too.
+`report/main.tex` carries `Name: Sun Yusu`, `Student ID: 1155267751`, the fork URL and a link to
+`slides/presentation.mp4` (8:48). The deck's last slide carries the repository URL as well.
 
-The **only** placeholder left is the recorded presentation. Once the video is uploaded, replace
-
-```
-Recorded presentation: \texttt{(link to be added)}
-```
-
-in `report/main.tex` (title block) with the URL, then rebuild:
-
-```powershell
-cd report; latexmk -pdf main.tex; cd ..
-```
+If you also upload the recording to YouTube or OneDrive, point the `Recorded presentation` line at
+that URL instead, then `cd report; latexmk -pdf main.tex; cd ..`. Nothing else changes.
 
 ## 3. Record the presentation (20–30 min, ≤15 min video)
 

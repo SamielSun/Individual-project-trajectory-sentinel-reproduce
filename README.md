@@ -21,7 +21,7 @@ The upstream README is preserved as [`UPSTREAM_README.md`](UPSTREAM_README.md).
   decomposition carries the sensitivity, the fusion rule buys precision.
 
 Report: [`report/main.pdf`](report/main.pdf) · Protocol: [`PROTOCOL.md`](PROTOCOL.md) ·
-Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides/presentation.pptx`](slides/presentation.pptx)
+Submission checklist: [`SUBMISSION.md`](SUBMISSION.md) · Presentation: [`slides/presentation.pptx`](slides/presentation.pptx) and [`slides/presentation.mp4`](slides/presentation.mp4) (8:48)
 
 ## Reproduce
 
