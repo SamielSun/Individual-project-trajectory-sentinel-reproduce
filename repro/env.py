@@ -53,12 +53,17 @@ def capture() -> dict:
         "captured_at": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
         "python": sys.version.split()[0],
         "python_implementation": platform.python_implementation(),
+        "python_executable": sys.executable,
+        "prefix": sys.prefix,
         "platform": platform.platform(),
         "machine": platform.machine(),
         "processor": platform.processor(),
         "cpu_count": __import__("os").cpu_count(),
         "upstream_url": cfg.UPSTREAM_URL,
-        "upstream_head": rev,
+        # The upstream base is the pinned commit, not this fork's HEAD: the fork
+        # moves every time a commit is added, the base does not.
+        "upstream_base": cfg.PINNED_COMMIT,
+        "fork_head": rev,
         "packages": versions,
     }
 
@@ -70,9 +75,10 @@ def main() -> None:
     out.write_text(json.dumps(env, indent=2), encoding="utf-8")
 
     print(f"python      : {env['python']} ({env['python_implementation']})")
+    print(f"prefix      : {env['prefix']}")
     print(f"platform    : {env['platform']}")
     print(f"cpu_count   : {env['cpu_count']}")
-    print(f"upstream    : {env['upstream_head']}")
+    print(f"upstream    : {env['upstream_base']}  (fork head {env['fork_head']})")
     for k, v in env["packages"].items():
         print(f"  {k:<14s}: {v}")
     print(f"wrote {cfg.rel(out)}")

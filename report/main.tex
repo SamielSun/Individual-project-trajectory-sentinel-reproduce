@@ -65,7 +65,16 @@
 \providecommand{\ModMeanFa}{n/a}
 \providecommand{\ModDeltaFa}{n/a}
 \providecommand{\CtrlRows}{n/a}
+\providecommand{\CtrlMonitors}{n/a}
+\providecommand{\CtrlComparisons}{n/a}
 \providecommand{\CtrlIdentical}{n/a}
+\providecommand{\ModTopTwoFa}{n/a}
+\providecommand{\ModSeedAId}{n/a}
+\providecommand{\ModSeedBId}{n/a}
+\providecommand{\ModBaseDetA}{n/a}
+\providecommand{\ModMeanDetA}{n/a}
+\providecommand{\ModBaseDetB}{n/a}
+\providecommand{\ModMeanDetB}{n/a}
 \providecommand{\BTwoDet}{n/a}
 \providecommand{\BTwoFa}{n/a}
 \providecommand{\BFiveDet}{n/a}
@@ -111,14 +120,15 @@ table, and one of the mechanism claims the table is used to support:
 \end{quote}
 
 Following Section 2 of the assignment, that means one row set on one benchmark (the in-process synthetic
-testbed) at a 5\% healthy-validation false-alarm budget, over the paper's five seeds:
-\texttt{esn\_cusum\_max} detection = \PaperDet, steps saved = \PaperLead, episode AUC = \PaperAuc,
-together with the comparator rows that make the row meaningful.
+testbed) at a 5\% healthy-validation false-alarm budget, over the paper's five seeds. Recomputed from
+the committed table, the primary row is detection \PaperDet, steps saved \PaperLead{} and episode AUC
+\PaperAuc; the paper prints those to fewer digits, as 0.71 $\pm$ 0.07, 4.6 $\pm$ 1.0 and 0.872
+$\pm$ 0.015, and the comparator rows are reproduced with it.
 
 The paper states its numbers are bit-reproducible from a single master seed, and ships a claim ledger
-that recomputes every headline figure from committed tables. That shifts where the work is worth
-spending: not on whether the pipeline runs, but on what exactly is reproduced and what silently changes
-the answer. Sections~\ref{sec:results} and~\ref{sec:concl} take that question in turn.
+that recomputes every headline figure from committed tables. Most of the work is therefore in deciding
+what exactly is reproduced and what silently changes the answer, which is what
+Sections~\ref{sec:results} and~\ref{sec:concl} take in turn.
 
 %=====================================================================
 \section{Setup notes}
@@ -146,7 +156,7 @@ stored; \texttt{.env} is gitignored. One arm takes \MeanRuntime{}~s of wall cloc
 \toprule
 Item & Paper & What we did, and what it risks \\
 \midrule
-Interpreter & CPython 3.14.5 & 3.12.14, because the 3.14 installer would not download at usable
+Interpreter & CPython 3.14.5 & \PyVer, because the 3.14 installer would not download at usable
   speed. All five package versions are the pinned ones and they ship \texttt{cp312} wheels. The risk is
   numeric drift if a library changed a default between minor versions. Section~\ref{sec:results} shows
   the master-seed table reproduced to the last digit, so on this study there is none. \\
@@ -218,7 +228,7 @@ Monitor & detection & steps saved & episode AUC & realised FA \\
 
 Running the unchanged pipeline at the master seed regenerates the paper's own master-seed artifact.
 Table~\ref{tab:masterdiff} gives, for every numeric column of \texttt{results/tables/h1\_main.csv}, the
-largest absolute difference between our file and the committed one across all monitor rows. Every
+largest absolute difference between our file and the committed one, over the 19 monitor rows both files contain. Every
 reported metric agrees exactly. The single non-zero entry is \texttt{\WorstColumn}, at \WorstDiff, a
 floating-point difference in a threshold quantile. It is far too small to move an alarm, and no alarm
 moved: detection, false-alarm rate, steps saved and AUC are all exactly zero.
@@ -263,7 +273,7 @@ five seeds.}\label{fig:head}
 
 \subsection{What did not reproduce}
 
-Three things did not come back.
+Three gaps.
 
 Wall-clock cost, 219~$\mu$s per step, was not attempted. The paper calls it the one figure that
 measures the machine and reports it moving to 252~$\mu$s on the same box, so we make no latency claim.
@@ -294,15 +304,14 @@ diluted by a mean, and the paper's example is grounding loss, which lives in 4 o
 dimensions. That makes the claim falsifiable in one direction: if the max carries the margin, removing
 it has to cost a large part of it.
 
-Both arms run on the same two disposable seeds (\texttt{424242}, \texttt{31337}), which the published
-study never uses. Same code, same machine, same pinned environment; only the aggregation function
-differs.
+The three arms run on the same two disposable seeds (\texttt{424242}, \texttt{31337}), which the
+published study never uses. Same code, same machine, same pinned environment; only the aggregation
+function differs.
 
 \begin{table}[h]
 \centering\small
 \caption{Fusion ablation on the primary monitor, paired over two unseen seeds and averaged over the
-two. Control rows: the patch cannot touch the other \CtrlRows{} monitor rows, and \CtrlIdentical{} of
-them stay bit-identical.}
+two. Control comparisons: 18 monitors at each seed, 36 in total, all bit-identical under the patch.}
 \label{tab:mod}
 \begin{tabular}{@{}l r r r r@{}}
 \toprule
@@ -311,7 +320,7 @@ Aggregation & detection & steps saved & episode AUC & realised FA \\
 max (baseline) & \ModBaseDet & \ModBaseLead & \ModBaseAuc & \ModBaseFa \\
 mean & \ModMeanDet & \ModMeanLead & \ModMeanAuc & \ModMeanFa \\
 \quad $\Delta$ against max & \ModDeltaDet & \ModDeltaLead & \ModDeltaAuc & \ModDeltaFa \\
-top-2 mean & \ModTopTwoDet & \ModTopTwoLead & \ModTopTwoAuc & --- \\
+top-2 mean & \ModTopTwoDet & \ModTopTwoLead & \ModTopTwoAuc & \ModTopTwoFa \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -323,15 +332,22 @@ top-2 mean & \ModTopTwoDet & \ModTopTwoLead & \ModTopTwoAuc & --- \\
 seeds.}\label{fig:mod}
 \end{figure}}{}
 
-The predicted cost does not appear. Replacing max with a mean moves detection from \ModBaseDet{} to
+The predicted collapse does not happen. Replacing max with a mean moves detection from \ModBaseDet{} to
 \ModMeanDet{} ($\ModDeltaDet$), adds $\ModDeltaLead$ steps saved and gives up $\ModDeltaAuc$ of ranking
-AUC. What it does cost is false-alarm discipline: at the same nominal 5\% budget the realised healthy
-false-alarm rate rises from \ModBaseFa{} to \ModMeanFa{} ($\ModDeltaFa$). All \CtrlIdentical{} control
-rows stay unchanged, which is the check that the patch is isolated.
+AUC. The realised healthy false-alarm rate at the same nominal 5\% budget rises from \ModBaseFa{} to
+\ModMeanFa{} ($\ModDeltaFa$), while the top-2 control, which behaves like max here, sits at
+\ModTopTwoFa. All \CtrlComparisons{} control comparisons stay identical, so the patch is isolated.
 
-So the margin the paper attributes to the max is not carried by the max. The per-channel decomposition
-produces the sensitivity, and the fusion rule buys precision. Two paired seeds support that narrower
-claim and nothing wider; settling it on the published five seeds would take a re-run.
+Three things keep this short of a clean result, and they matter at the size of the effect. The detection
+gain comes from one seed: \ModBaseDetA{} to \ModMeanDetA{} on \texttt{\ModSeedAId}, and \ModBaseDetB{} to
+\ModMeanDetB{} on \texttt{\ModSeedBId}. Because the mean arm also alarms more often, the detection
+numbers are not compared at a matched false-alarm rate, so part of the gain could be the looser
+operating point rather than better fusion. And two seeds give no interval, so what follows is a
+direction.
+
+With that caveat, the ablation argues against the paper's attribution. Removing the max costs nothing in
+detection and costs about a percentage point of false-alarm rate, which is the opposite of the ordering
+the claim implies.
 
 %=====================================================================
 \section{Debug diary}
@@ -355,7 +371,7 @@ claim and nothing wider; settling it on the published five seeds would take a re
   A sparse checkout without \texttt{traces/} left 62 tests failing on a missing
   \texttt{manifest.json}. Fetching the corpora brought the gate to 854 passed, 14 failed and 21
   skipped, and all fourteen remaining failures are optional dependencies of the trace-collection stack.
-  The lesson is that a fork cannot inherit a test gate without inheriting the data behind it.
+  A fork cannot inherit a test gate without inheriting the data behind it.
 
 \item Silent row loss.
   Without torch the monitor list loses the GRU, LSTM and TCN rows and the table still renders, with no
@@ -374,7 +390,7 @@ claim and nothing wider; settling it on the published five seeds would take a re
   $5.2\times10^{-11}$, because it is a float quantile of the healthy scores. Reporting the table as
   exact therefore required deciding what has to be zero: the metrics, not the threshold. Since
   detection, false-alarm rate, steps saved and AUC are all zero, no alarm changed side, so the
-  distinction is checkable rather than rhetorical.
+  distinction can be checked instead of argued.
 \end{enumerate}
 
 %=====================================================================
@@ -382,28 +398,30 @@ claim and nothing wider; settling it on the published five seeds would take a re
 \label{sec:concl}
 
 \begin{itemize}
-\item \textbf{Fully reproducible:} the behavioural-monitor table. At the master seed our
-  \texttt{h1\_main.csv} is identical column for column to the committed one; over five seeds every
-  monitor row we can run matches, including the primary monitor at detection \MyDet{} against the
-  paper's \PaperDet. The reproduction is deterministic and CPU-only.
-\item \textbf{Not supported by our ablation:} the attribution of the margin to the max rule. Replacing
-  max with a mean leaves detection at \ModMeanDet{} (from \ModBaseDet{}) and costs $\ModDeltaAuc$ AUC,
-  while the realised false-alarm rate moves \ModDeltaFa; the controls are untouched. What the ablation
-  supports is narrower: the per-channel decomposition produces the sensitivity, and the fusion rule
-  buys false-alarm discipline.
+\item \textbf{Fully reproducible:} the behavioural-monitor table. At the master seed every reported
+  metric in \texttt{h1\_main.csv} matches the committed file, with the alarm threshold differing by
+  $5.2\times10^{-11}$; over five seeds every monitor row we can run matches, including the primary
+  monitor at detection \MyDet{} against the committed \PaperDet. The reproduction is deterministic and
+  CPU-only.
+\item \textbf{Contradicted by our ablation, weakly:} the attribution of the margin to the max rule.
+  Replacing max with a mean leaves detection at \ModMeanDet{} (from \ModBaseDet{}) and costs
+  $\ModDeltaAuc$ AUC, while the realised false-alarm rate rises \ModDeltaFa. The gain comes from one of
+  two seeds and the arms are not compared at a matched false-alarm rate, so this is a direction rather
+  than a measured effect. All \CtrlComparisons{} control comparisons are unchanged.
 \item \textbf{Not reproduced:} wall-clock latency, the GRU/LSTM/TCN rows, the live repair arm and the
-  two external corpora. Each is a coverage gap declared in Section 2 of this report, not a failure of the code.
+  two external corpora. Each is a coverage gap declared in Section 2 of this report; none of them is a
+  defect in the code.
 \item \textbf{Hidden assumptions.} The paper's v1 corpus and the current tree differ in size, so quote
   the commit. \texttt{episode\_auc} is an offline ranking statistic, and reporting it as detection
   inflates the result. The realised false-alarm rate is not the budget. An optional dependency can
   change the row set without an error.
-\item \textbf{For the next person.} Pin the commit, redirect the results root, install with
-  \texttt{--no-deps} and an explicit transitive list, and diff the row set before trusting a table.
+\item \textbf{What a rerun would need.} Pin the commit, redirect the results root, assert on the row set
+  and, for the ablation, enough seeds to put an interval on the effect.
 \end{itemize}
 
 \vspace{4pt}
 \small
-Every number in this report comes from the harness in the repository: \texttt{python -m repro.env},
+Every number this reproduction produces comes from the harness in the repository: \texttt{python -m repro.env},
 \texttt{python -m repro.run\_all}, \texttt{python -m repro.collect} and \texttt{python -m
 repro.figures} regenerate it from scratch (\NArms{} arms, about \MeanRuntime{}~s each).
 

@@ -99,7 +99,7 @@ verifies `CHECKSUMS.md` over `traces/` and `assets/`, and runs the 62 tests that
 join our numbers against the committed artifact, and fail unless every reported metric matches exactly
 (`python -m repro.ci_gate`). ~4 minutes on a standard runner.
 
-The upstream gate itself is reported honestly in the report (§2): with the corpora present it is 854
+The upstream gate itself is reported honestly in the report (Section 2): with the corpora present it is 854
 passed / 14 failed / 21 skipped, and every failure is a missing optional dependency of the
 trace-collection stack, not a number.
 
@@ -110,10 +110,12 @@ trace-collection stack, not a number.
   upstream tests that read `traces/*/manifest.json` cannot run here; `PROTOCOL.md` declares that
   instead of hiding it.
 * **Python 3.12 is fine.** Upstream's artifacts were produced on 3.14.5; every pinned package ships a
-  `cp312` wheel, and the master-seed table reproduces digit-for-digit on 3.12 (report §4).
+  `cp312` wheel, and the master-seed table reproduces digit-for-digit on 3.12 (report Section 4).
 * **Install with `--no-deps` + an explicit transitive list** — see the header of `setup.ps1` for why
   the resolver stalled here.
 * **torch is optional upstream.** Without it the GRU/LSTM/TCN rows silently disappear and the table
   still renders; we assert on the row set rather than trusting the file.
-* **No secrets committed.** `.env` and `*.key` are gitignored, and
-  `git log --all -p | Select-String "sk-"` returns nothing.
+* **No secrets committed.** `.env` and `*.key` are gitignored. A `git log --all -p | Select-String
+  "sk-"` does return matches, but they are upstream's test fixtures, for example
+  `sk-abcdefghijklmnopqrstuvwxyz012345` in `tests/test_hf_dataset.py`; no working credential appears
+  anywhere in the history.

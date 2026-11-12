@@ -223,7 +223,7 @@ def main() -> None:
     macros["ScipyVer"] = str(env["packages"]["scipy"])
     macros["PandasVer"] = str(env["packages"]["pandas"])
     macros["SklearnVer"] = str(env["packages"]["scikit-learn"])
-    macros["UpstreamHead"] = (env["upstream_head"] or "unknown")[:7]
+    macros["UpstreamHead"] = (env.get("upstream_base") or env.get("upstream_head") or "unknown")[:7]
     macros["CpuCount"] = str(env["cpu_count"])
     macros["NArms"] = str(len(manifest))
     macros["MeanRuntime"] = f"{np.mean(durations):.0f}" if durations else "n/a"
@@ -254,21 +254,24 @@ def main() -> None:
         put("WorstDiff", f"{worst_val:.1e}")
 
     if not t2.empty:
+        # Four decimals on the arms and on the deltas, so the displayed delta is
+        # the difference of the displayed numbers. Three decimals made +0.011
+        # look wrong next to a printed 0.714 - 0.702.
         pivot = t2.pivot_table(index="arm", values="detection_rate", aggfunc="mean")
         if {"baseline(max)", "mean"} <= set(pivot.index):
             b = float(pivot.loc["baseline(max)", "detection_rate"])
             m = float(pivot.loc["mean", "detection_rate"])
-            put("ModBaseDet", f"{b:.3f}")
-            put("ModMeanDet", f"{m:.3f}")
-            put("ModDeltaDet", f"{m - b:+.3f}")
+            put("ModBaseDet", f"{b:.4f}")
+            put("ModMeanDet", f"{m:.4f}")
+            put("ModDeltaDet", f"{m - b:+.4f}")
             put("ModRelDet", f"{(m - b) / b * 100:+.1f}\\%")
         if "top2mean" in pivot.index:
-            put("ModTopTwoDet", f"{float(pivot.loc['top2mean', 'detection_rate']):.3f}")
+            put("ModTopTwoDet", f"{float(pivot.loc['top2mean', 'detection_rate']):.4f}")
         pa = t2.pivot_table(index="arm", values="episode_auc", aggfunc="mean")
         if {"baseline(max)", "mean"} <= set(pa.index):
-            put("ModBaseAuc", f"{float(pa.loc['baseline(max)', 'episode_auc']):.3f}")
-            put("ModMeanAuc", f"{float(pa.loc['mean', 'episode_auc']):.3f}")
-            put("ModDeltaAuc", f"{float(pa.loc['mean', 'episode_auc']) - float(pa.loc['baseline(max)', 'episode_auc']):+.3f}")
+            put("ModBaseAuc", f"{float(pa.loc['baseline(max)', 'episode_auc']):.4f}")
+            put("ModMeanAuc", f"{float(pa.loc['mean', 'episode_auc']):.4f}")
+            put("ModDeltaAuc", f"{float(pa.loc['mean', 'episode_auc']) - float(pa.loc['baseline(max)', 'episode_auc']):+.4f}")
         pl = t2.pivot_table(index="arm", values="mean_lead_all", aggfunc="mean")
         if {"baseline(max)", "mean"} <= set(pl.index):
             put("ModBaseLead", f"{float(pl.loc['baseline(max)', 'mean_lead_all']):.2f}")
@@ -276,17 +279,33 @@ def main() -> None:
             put("ModDeltaLead", f"{float(pl.loc['mean', 'mean_lead_all']) - float(pl.loc['baseline(max)', 'mean_lead_all']):+.2f}")
         pf = t2.pivot_table(index="arm", values="healthy_fa_rate", aggfunc="mean")
         if {"baseline(max)", "mean"} <= set(pf.index):
-            put("ModBaseFa", f"{float(pf.loc['baseline(max)', 'healthy_fa_rate']):.3f}")
-            put("ModMeanFa", f"{float(pf.loc['mean', 'healthy_fa_rate']):.3f}")
-            put("ModDeltaFa", f"{float(pf.loc['mean', 'healthy_fa_rate']) - float(pf.loc['baseline(max)', 'healthy_fa_rate']):+.3f}")
+            put("ModBaseFa", f"{float(pf.loc['baseline(max)', 'healthy_fa_rate']):.4f}")
+            put("ModMeanFa", f"{float(pf.loc['mean', 'healthy_fa_rate']):.4f}")
+            put("ModDeltaFa", f"{float(pf.loc['mean', 'healthy_fa_rate']) - float(pf.loc['baseline(max)', 'healthy_fa_rate']):+.4f}")
         if "top2mean" in pl.index:
             put("ModTopTwoLead", f"{float(pl.loc['top2mean', 'mean_lead_all']):.2f}")
         if "top2mean" in pa.index:
-            put("ModTopTwoAuc", f"{float(pa.loc['top2mean', 'episode_auc']):.3f}")
+            put("ModTopTwoAuc", f"{float(pa.loc['top2mean', 'episode_auc']):.4f}")
+        if "top2mean" in pf.index:
+            put("ModTopTwoFa", f"{float(pf.loc['top2mean', 'healthy_fa_rate']):.4f}")
+
+        # Per-seed split of the detection effect: the aggregate hides that one
+        # seed carries all of it.
+        for seed in cfg.PAIRED_SEEDS:
+            rows = t2[t2["seed"] == seed].set_index("arm")["detection_rate"]
+            if {"baseline(max)", "mean"} <= set(rows.index):
+                tag = "A" if seed == cfg.PAIRED_SEEDS[0] else "B"
+                put(f"ModSeed{tag}Id", str(seed))
+                put(f"ModBaseDet{tag}", f"{float(rows['baseline(max)']):.4f}")
+                put(f"ModMeanDet{tag}", f"{float(rows['mean']):.4f}")
 
     if not t2c.empty:
-        put("CtrlRows", str(len(t2c)))
+        n_comp = len(t2c)
+        n_mon = t2c["monitor"].nunique()
+        put("CtrlComparisons", str(n_comp))
+        put("CtrlMonitors", str(n_mon))
         put("CtrlIdentical", str(int(t2c["identical"].sum())))
+        put("CtrlRows", str(n_mon))
 
     if not t3.empty:
         for _, r in t3.iterrows():
