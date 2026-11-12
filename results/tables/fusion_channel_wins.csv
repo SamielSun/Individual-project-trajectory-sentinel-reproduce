@@ -1,0 +1,17 @@
+framework,arm,protocol,win_share_e,win_share_m
+langgraph,cusum/raw,holdout,0.6206896551724138,0.3793103448275862
+langgraph,cusum/raw,crossfit,0.5732758620689655,0.4267241379310345
+langgraph,cusum/normalized,holdout,0.4051724137931034,0.5948275862068966
+langgraph,cusum/normalized,crossfit,0.9224137931034483,0.07758620689655173
+langgraph,rate/normalized,holdout,0.33189655172413796,0.6681034482758621
+langgraph,rate/normalized,crossfit,0.9224137931034483,0.07758620689655173
+langgraph,increment/normalized,holdout,0.4224137931034483,0.5775862068965517
+langgraph,increment/normalized,crossfit,0.75,0.25
+autogen,cusum/raw,holdout,0.8258426966292135,0.17415730337078653
+autogen,cusum/raw,crossfit,0.7640449438202247,0.23595505617977527
+autogen,cusum/normalized,holdout,0.8764044943820225,0.12359550561797752
+autogen,cusum/normalized,crossfit,0.8932584269662921,0.10674157303370786
+autogen,rate/normalized,holdout,0.848314606741573,0.15168539325842698
+autogen,rate/normalized,crossfit,0.9044943820224719,0.09550561797752809
+autogen,increment/normalized,holdout,0.8370786516853933,0.16292134831460675
+autogen,increment/normalized,crossfit,0.6853932584269663,0.3146067415730337

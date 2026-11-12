@@ -1,0 +1,26 @@
+failure_class,seed,injection_step,alarm_step,contract_step,repair_trigger,repair_state,alarm_repair_used,check_repair_used,breaker_open,end_reason,answer_check,steps,peak_score,final_score
+looping,21,4,10,,alarm,repair_failed,True,False,{'lookup_hotel'},escalated_tool_layer_down,,10,2.95,2.65
+looping,22,4,10,,alarm,repair_failed,True,False,{'lookup_hotel'},escalated_tool_layer_down,,10,2.96,2.65
+looping,23,4,10,,alarm,repair_failed,True,False,{'lookup_hotel'},escalated_tool_layer_down,,10,3.08,2.63
+looping,24,4,10,,alarm,repair_failed,True,False,{'lookup_hotel'},escalated_tool_layer_down,,10,3.03,2.57
+looping,25,4,10,,alarm,repair_failed,True,False,{'lookup_hotel'},escalated_tool_layer_down,,10,2.97,2.62
+grounding_loss,21,4,,,,none,False,False,set(),answered,correct,12,0.26,0.26
+grounding_loss,22,4,12,,checks,repair_failed,False,True,set(),answered,wrong,13,3.19,3.19
+grounding_loss,23,4,13,,checks,repair_failed,False,True,set(),answered,wrong,14,1.42,1.42
+grounding_loss,24,4,,,,none,False,False,set(),answered,correct,12,0.18,0.17
+grounding_loss,25,4,,,,none,False,False,set(),answered,correct,12,0.18,0.18
+goal_drift,21,4,17,,checks,repair_failed,True,True,set(),answered,wrong,17,3.4,2.75
+goal_drift,22,4,13,,checks,repaired,True,True,set(),answered,wrong,17,4.0,0.45
+goal_drift,23,4,13,,checks,repaired,True,True,set(),answered,correct,17,3.7,0.48
+goal_drift,24,4,13,,checks,repaired,True,True,set(),answered,correct,17,4.01,0.36
+goal_drift,25,4,15,,alarm,repaired,True,False,set(),answered,correct,17,3.27,2.26
+tool_cascade,21,4,8,,checks,repair_failed,True,True,set(),answered,wrong,14,5.75,5.75
+tool_cascade,22,4,11,,alarm,repair_failed,True,False,"{'calculator', 'lookup_hotel'}",escalated_tool_layer_down,,11,2.74,2.74
+tool_cascade,23,4,9,,checks,repair_failed,True,True,{'lookup_flight'},escalated_tool_layer_down,,13,8.77,1.33
+tool_cascade,24,4,11,,alarm,repair_failed,True,False,"{'calculator', 'lookup_hotel'}",escalated_tool_layer_down,,11,2.72,2.72
+tool_cascade,25,4,11,,alarm,repair_failed,True,False,{'calculator'},escalated_tool_layer_down,,13,9.53,9.53
+context_corruption,21,4,,4,alarm,repair_failed,True,True,set(),answered,wrong,19,3.47,0.51
+context_corruption,22,4,12,4,checks,repair_failed,True,True,set(),answered,wrong,15,3.51,3.51
+context_corruption,23,4,18,4,checks,repair_failed,True,True,set(),answered,wrong,19,6.99,6.99
+context_corruption,24,4,18,4,alarm,repair_failed,True,True,set(),answered,wrong,18,3.98,3.12
+context_corruption,25,4,18,4,checks,repair_failed,True,True,set(),answered,wrong,18,1.07,1.07

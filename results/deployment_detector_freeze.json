@@ -1,0 +1,1586 @@
+{
+  "purpose": "The detector the repair path serves, frozen on the deployment's own healthy population. Separate from and additive to results/framework_monitor_freeze.json, which is the immutable pre-fix baseline and is not touched.",
+  "monitor_version": "normalized_fusion[e+m]/rate/v2",
+  "statistic": "rate",
+  "normalize_channels": true,
+  "threshold_on": "fused_statistic",
+  "fa_budget": 0.05,
+  "protocol": "four_fold_holdout",
+  "baseline_freeze": "results/framework_monitor_freeze.json",
+  "deployment_corpus": "real_task_rollback_healthy",
+  "served_corpus": "real_task_rollback",
+  "admission_rule": "task_verifier_must_pass",
+  "split_seed": 8317,
+  "monitor_seed": 0,
+  "adopted_arm": "e+m",
+  "fold_sizes": {
+    "fit": 140,
+    "scale": 40,
+    "threshold": 80,
+    "development": 37
+  },
+  "fold_episode_ids": {
+    "fit": [
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-75",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-74",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-107",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-82",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-16",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-43",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-02",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-149",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-89",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-33",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-74",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-145",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-72",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-48",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-121",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-62",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-15",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-92",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-27",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-135",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-10",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-05",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-61",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-36",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-119",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-149",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-113",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-109",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-10",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-42",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-47",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-107",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-128",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-122",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-23",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-108",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-63",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-45",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-143",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-22",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-130",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-97",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-90",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-131",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-114",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-76",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-78",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-118",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-45",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-47",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-121",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-111",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-109",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-96",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-29",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-27",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-126",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-55",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-57",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-123",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-120",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-07",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-140",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-120",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-112",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-66",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-115",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-23",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-35",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-98",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-144",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-141",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-64",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-129",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-24",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-112",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-11",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-05",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-71",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-26",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-132",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-108",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-25",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-67",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-39",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-143",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-69",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-128",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-08",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-105",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-06",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-73",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-50",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-13",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-88",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-25",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-83",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-78",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-127",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-70",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-32",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-66",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-11",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-134",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-146",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-91",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-20",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-59",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-42",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-82",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-08",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-80",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-86",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-93",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-104",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-41",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-21",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-133",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-134",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-91",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-12",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-106",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-57",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-14",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-44",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-52",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-138",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-135",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-103",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-125",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-09",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-51",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-94",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-116",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-119",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-99",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-26",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-59",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-77",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-99"
+    ],
+    "scale": [
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-58",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-12",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-03",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-63",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-124",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-19",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-28",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-123",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-71",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-129",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-31",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-46",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-115",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-58",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-14",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-41",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-95",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-37",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-19",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-81",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-144",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-137",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-92",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-40",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-140",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-68",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-84",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-93",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-54",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-40",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-65",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-85",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-137",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-31",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-73",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-146",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-29",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-30",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-50",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-88"
+    ],
+    "threshold": [
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-131",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-136",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-104",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-125",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-03",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-94",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-00",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-18",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-20",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-118",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-62",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-33",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-72",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-18",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-55",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-100",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-54",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-39",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-01",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-117",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-142",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-37",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-79",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-114",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-113",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-38",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-111",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-97",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-46",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-22",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-04",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-77",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-76",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-100",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-16",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-142",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-53",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-136",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-56",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-09",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-126",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-56",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-117",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-139",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-07",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-38",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-65",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-34",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-141",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-43",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-06",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-101",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-67",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-124",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-24",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-106",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-01",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-30",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-139",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-34",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-13",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-61",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-00",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-17",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-32",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-49",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-51",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-110",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-103",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-130",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-17",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-147",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-52",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-84",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-90",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-69",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-81",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-102",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-21",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-98"
+    ],
+    "development": [
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-95",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-64",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-132",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-145",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-70",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-15",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-122",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-79",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-36",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-68",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-133",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-49",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-86",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-28",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-53",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-89",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-83",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-85",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-87",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-147",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-148",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-110",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-75",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-105",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-138",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-02",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-116",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-87",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-102",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-04",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-127",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-80",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-148",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-35",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-60",
+      "real_task_rollback_healthy/rollback-multi_city_weather-healthy-44",
+      "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-48"
+    ]
+  },
+  "fold_input_hashes": {
+    "fit": "4572d0dd39f414b31dd1455a68f2e4f9275c22774fc0f99e9b85d62b1313028d",
+    "scale": "8ea5f45f1a3dd0c44920d400aaf0b4d7939e38ff73da9e7faeebcbe406a68f28",
+    "threshold": "257ac3b156cd0ee93b4e7a41d46dd632c98d1e60c5f923db09080d74370f6710",
+    "development": "302fdc83334371608220ef9043bb1b69ede1c4909eadb157cbb5ea705e1ce064"
+  },
+  "healthy_refused": [],
+  "served_injected_episode_ids": [
+    "real_task_rollback/rollback-arxiv_paper_search-context_corruption-00",
+    "real_task_rollback/rollback-arxiv_paper_search-context_corruption-01",
+    "real_task_rollback/rollback-arxiv_paper_search-looping-00",
+    "real_task_rollback/rollback-arxiv_paper_search-looping-01",
+    "real_task_rollback/rollback-arxiv_paper_search-tool_cascade-00",
+    "real_task_rollback/rollback-arxiv_paper_search-tool_cascade-01",
+    "real_task_rollback/rollback-arxiv_paper_search-wrong_document-00",
+    "real_task_rollback/rollback-arxiv_paper_search-wrong_document-01",
+    "real_task_rollback/rollback-multi_city_weather-context_corruption-00",
+    "real_task_rollback/rollback-multi_city_weather-context_corruption-01",
+    "real_task_rollback/rollback-multi_city_weather-looping-00",
+    "real_task_rollback/rollback-multi_city_weather-looping-01",
+    "real_task_rollback/rollback-multi_city_weather-tool_cascade-00",
+    "real_task_rollback/rollback-multi_city_weather-tool_cascade-01",
+    "real_task_rollback/rollback-multi_city_weather-wrong_document-00",
+    "real_task_rollback/rollback-multi_city_weather-wrong_document-01"
+  ],
+  "served_healthy_episode_ids": [
+    "real_task_rollback/rollback-arxiv_paper_search-healthy-00",
+    "real_task_rollback/rollback-arxiv_paper_search-healthy-01",
+    "real_task_rollback/rollback-multi_city_weather-healthy-00",
+    "real_task_rollback/rollback-multi_city_weather-healthy-01"
+  ],
+  "arms": {
+    "e+m": {
+      "channels": [
+        "e",
+        "m"
+      ],
+      "monitor_name": "normalized_fusion[e+m]/rate",
+      "channel_scales": [
+        {
+          "channel": "e",
+          "median": 0.0,
+          "dispersion": 0.7543366699822021,
+          "n_steps": 111
+        },
+        {
+          "channel": "m",
+          "median": 0.0,
+          "dispersion": 0.39971155717082135,
+          "n_steps": 111
+        }
+      ],
+      "n_threshold_used": 80,
+      "n_threshold_skipped": 0,
+      "theta": 45.20339225624459,
+      "development_false_alarms": {
+        "k": 3,
+        "n": 37,
+        "rate": 0.08108108108108109,
+        "ci95": [
+          0.02796057410044797,
+          0.2130067934928839
+        ],
+        "budget": 0.05
+      },
+      "served_healthy_transfer_check": {
+        "k": 3,
+        "n": 4,
+        "rate": 0.75
+      },
+      "detection": {
+        "k": 15,
+        "n": 16,
+        "rate": 0.9375,
+        "ci95": [
+          0.7167126242970107,
+          0.9888806552353576
+        ]
+      },
+      "pre_onset_alarms": {
+        "k": 1,
+        "n": 16,
+        "rate": 0.0625,
+        "note": "Injected episodes whose first alarm precedes onset. Counted as misses in detection, reported here so the mechanism is visible."
+      },
+      "detection_per_class": {
+        "context_corruption": {
+          "n": 4,
+          "detected": 4,
+          "pre_onset": 0,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "median_steps_after_onset": 0.5
+        },
+        "looping": {
+          "n": 4,
+          "detected": 4,
+          "pre_onset": 0,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "median_steps_after_onset": 1.0
+        },
+        "tool_cascade": {
+          "n": 4,
+          "detected": 3,
+          "pre_onset": 1,
+          "rate": 0.75,
+          "ci95": [
+            0.30064184258240184,
+            0.9544127391902995
+          ],
+          "median_steps_after_onset": 1.0
+        },
+        "wrong_document": {
+          "n": 4,
+          "detected": 4,
+          "pre_onset": 0,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "median_steps_after_onset": 0.5
+        }
+      },
+      "detection_by_runway": {
+        "<=2": {
+          "n": 4,
+          "detected": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ]
+        },
+        ">5": {
+          "n": 7,
+          "detected": 7,
+          "rate": 1.0,
+          "ci95": [
+            0.6456695649333126,
+            1.0
+          ]
+        },
+        "3-5": {
+          "n": 5,
+          "detected": 4,
+          "rate": 0.8,
+          "ci95": [
+            0.37553462976252533,
+            0.9637758913675698
+          ]
+        }
+      },
+      "runway_note": "Misses at runway <= 2 are runway-limited: the episode ended before enough post-onset evidence existed. They are counted as misses, and reported separately so they are not read as detector accuracy.",
+      "per_episode": {
+        "development": [
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-95",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-64",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-132",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-145",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-70",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-15",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-122",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-79",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-36",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-68",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-133",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-49",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-86",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-28",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-53",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-89",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-83",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-85",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-87",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-147",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-148",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-110",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-75",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-105",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-138",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-02",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-116",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-87",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-102",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-04",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-127",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-80",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-148",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-35",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-60",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-44",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-48",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          }
+        ],
+        "served_healthy": [
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-healthy-00",
+            "T": 4,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-healthy-01",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-healthy-00",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-healthy-01",
+            "T": 7,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          }
+        ],
+        "injected": [
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-context_corruption-00",
+            "T": 4,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-context_corruption-01",
+            "T": 10,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-looping-00",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "looping",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-looping-01",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "looping",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-tool_cascade-00",
+            "T": 7,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "tool_cascade",
+            "tau": 4
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-tool_cascade-01",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "tool_cascade",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-wrong_document-00",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "wrong_document",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-wrong_document-01",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "wrong_document",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-context_corruption-00",
+            "T": 7,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-context_corruption-01",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-looping-00",
+            "T": 8,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "looping",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-looping-01",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "looping",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-tool_cascade-00",
+            "T": 8,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "tool_cascade",
+            "tau": 4
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-tool_cascade-01",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "tool_cascade",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-wrong_document-00",
+            "T": 8,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "wrong_document",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-wrong_document-01",
+            "T": 11,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "wrong_document",
+            "tau": 3
+          }
+        ]
+      }
+    },
+    "e+m+c": {
+      "channels": [
+        "e",
+        "m",
+        "c"
+      ],
+      "monitor_name": "normalized_fusion[e+m+c]/rate",
+      "channel_scales": [
+        {
+          "channel": "e",
+          "median": 0.0,
+          "dispersion": 0.7543366699822021,
+          "n_steps": 111
+        },
+        {
+          "channel": "m",
+          "median": 0.0,
+          "dispersion": 0.39971155717082135,
+          "n_steps": 111
+        },
+        {
+          "channel": "c",
+          "median": 0.8940808371168241,
+          "dispersion": 2.8020472809846395,
+          "n_steps": 111
+        }
+      ],
+      "n_threshold_used": 80,
+      "n_threshold_skipped": 0,
+      "theta": 45.20339225624459,
+      "development_false_alarms": {
+        "k": 3,
+        "n": 37,
+        "rate": 0.08108108108108109,
+        "ci95": [
+          0.02796057410044797,
+          0.2130067934928839
+        ],
+        "budget": 0.05
+      },
+      "served_healthy_transfer_check": {
+        "k": 3,
+        "n": 4,
+        "rate": 0.75
+      },
+      "detection": {
+        "k": 15,
+        "n": 16,
+        "rate": 0.9375,
+        "ci95": [
+          0.7167126242970107,
+          0.9888806552353576
+        ]
+      },
+      "pre_onset_alarms": {
+        "k": 1,
+        "n": 16,
+        "rate": 0.0625,
+        "note": "Injected episodes whose first alarm precedes onset. Counted as misses in detection, reported here so the mechanism is visible."
+      },
+      "detection_per_class": {
+        "context_corruption": {
+          "n": 4,
+          "detected": 4,
+          "pre_onset": 0,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "median_steps_after_onset": 0.5
+        },
+        "looping": {
+          "n": 4,
+          "detected": 4,
+          "pre_onset": 0,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "median_steps_after_onset": 1.0
+        },
+        "tool_cascade": {
+          "n": 4,
+          "detected": 3,
+          "pre_onset": 1,
+          "rate": 0.75,
+          "ci95": [
+            0.30064184258240184,
+            0.9544127391902995
+          ],
+          "median_steps_after_onset": 1.0
+        },
+        "wrong_document": {
+          "n": 4,
+          "detected": 4,
+          "pre_onset": 0,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ],
+          "median_steps_after_onset": 0.5
+        }
+      },
+      "detection_by_runway": {
+        "<=2": {
+          "n": 4,
+          "detected": 4,
+          "rate": 1.0,
+          "ci95": [
+            0.5101091635454027,
+            1.0
+          ]
+        },
+        ">5": {
+          "n": 7,
+          "detected": 7,
+          "rate": 1.0,
+          "ci95": [
+            0.6456695649333126,
+            1.0
+          ]
+        },
+        "3-5": {
+          "n": 5,
+          "detected": 4,
+          "rate": 0.8,
+          "ci95": [
+            0.37553462976252533,
+            0.9637758913675698
+          ]
+        }
+      },
+      "runway_note": "Misses at runway <= 2 are runway-limited: the episode ended before enough post-onset evidence existed. They are counted as misses, and reported separately so they are not read as detector accuracy.",
+      "per_episode": {
+        "development": [
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-95",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-64",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-132",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-145",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-70",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-15",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-122",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-79",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-36",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-68",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-133",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-49",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-86",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-28",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-53",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-89",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-83",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-85",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-87",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-147",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-148",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-110",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-75",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-105",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-138",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-02",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-116",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-87",
+            "T": 6,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-102",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-04",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-127",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-80",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-148",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-35",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-60",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-multi_city_weather-healthy-44",
+            "T": 7,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback_healthy/rollback-arxiv_paper_search-healthy-48",
+            "T": 4,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          }
+        ],
+        "served_healthy": [
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-healthy-00",
+            "T": 4,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-healthy-01",
+            "T": 5,
+            "alarmed": false,
+            "alarm_step": null,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-healthy-00",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-healthy-01",
+            "T": 7,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": null,
+            "tau": null
+          }
+        ],
+        "injected": [
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-context_corruption-00",
+            "T": 4,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-context_corruption-01",
+            "T": 10,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-looping-00",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "looping",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-looping-01",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "looping",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-tool_cascade-00",
+            "T": 7,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "tool_cascade",
+            "tau": 4
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-tool_cascade-01",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "tool_cascade",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-wrong_document-00",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "wrong_document",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-arxiv_paper_search-wrong_document-01",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 4,
+            "failure_class": "wrong_document",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-context_corruption-00",
+            "T": 7,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-context_corruption-01",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "context_corruption",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-looping-00",
+            "T": 8,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "looping",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-looping-01",
+            "T": 12,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "looping",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-tool_cascade-00",
+            "T": 8,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "tool_cascade",
+            "tau": 4
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-tool_cascade-01",
+            "T": 5,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "tool_cascade",
+            "tau": 2
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-wrong_document-00",
+            "T": 8,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "wrong_document",
+            "tau": 3
+          },
+          {
+            "episode_id": "real_task_rollback/rollback-multi_city_weather-wrong_document-01",
+            "T": 11,
+            "alarmed": true,
+            "alarm_step": 3,
+            "failure_class": "wrong_document",
+            "tau": 3
+          }
+        ]
+      }
+    }
+  },
+  "channel_contribution": {
+    "added_channels": [
+      "c"
+    ],
+    "scored_steps": 809,
+    "fusion_wins": {
+      "e": 628,
+      "m": 132,
+      "c": 49
+    },
+    "win_share": {
+      "e": 0.7762669962917181,
+      "m": 0.1631644004944376,
+      "c": 0.06056860321384425
+    },
+    "episodes_compared": 133,
+    "episodes_whose_maximum_moved": 22,
+    "largest_maximum_shift": 1.8958181695739509,
+    "episodes_that_crossed_the_threshold": 0,
+    "goal_drift_episodes_available": 0
+  },
+  "split_sensitivity": null,
+  "code_commit": "7f8fd432f7737131315e70873a492c0a23a04849",
+  "evidence": [
+    "results/deployment_healthy_collection_audit.md",
+    "results/calibration_sample_size.md",
+    "results/fusion_protocol_decision.json",
+    "results/goal_channel_study.md"
+  ]
+}

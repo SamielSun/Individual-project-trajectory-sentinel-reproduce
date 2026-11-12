@@ -1,0 +1,37 @@
+{
+  "version": "normalized_fusion[e+m]/rate/v2",
+  "statistic": "rate",
+  "channels": [
+    "e",
+    "m"
+  ],
+  "deferred_candidate_channels": [
+    "c"
+  ],
+  "normalize_channels": true,
+  "threshold_on": "fused_statistic",
+  "fa_budget": 0.05,
+  "protocol": "three_fold_holdout",
+  "min_fit_episodes": 140,
+  "min_scale_episodes": 40,
+  "min_threshold_episodes": 80,
+  "final_calibration_rule": "distribution_free_one_sided_tolerance_bound",
+  "final_calibration_confidence": 0.95,
+  "min_final_calibration_episodes": 640,
+  "untouched_test_episodes": 300,
+  "healthy_admission": "task_verifier_must_pass",
+  "exclude_unscoreable_from_calibration": true,
+  "report_both_fa_denominators": true,
+  "evidence": [
+    "results/fusion_candidates.md",
+    "results/tables/fusion_arm_paired.csv",
+    "results/tables/fusion_length_strata.csv",
+    "results/tables/fusion_channel_wins.csv",
+    "results/calibration_sample_size.md",
+    "results/healthy_admission_audit.md",
+    "results/goal_channel_study.md",
+    "results/tables/goal_channel_paired.csv",
+    "results/tables/goal_channel_threshold_allocation.csv",
+    "results/drift_realization_audit.md"
+  ]
+}

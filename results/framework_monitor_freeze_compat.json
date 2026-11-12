@@ -1,0 +1,559 @@
+{
+  "purpose": "Keeps the pre-fix framework baseline executable and unambiguous while the detector evolves. The freeze artifact itself is immutable; this file records what has been proven equivalent to it.",
+  "monitor_version": "esn_cusum_max[e,m]/v1-prefix",
+  "freeze_artifact": "results/framework_monitor_freeze.json",
+  "freeze_sha256": "0b0b25bf9f9598085a7eb09e993113d0877394150e86bdc74f203270a3a583d8",
+  "published_artifacts": [
+    "results/framework_real_tool_report.md",
+    "results/framework_generalized_monitor_report.md",
+    "results/tables/framework_generalized_monitor_summary.csv",
+    "results/tables/framework_generalized_monitor_alarms.csv",
+    "results/tables/framework_real_tool_alarms.csv"
+  ],
+  "baseline_commit": "3220047395a382a669ba32d48f92d0efaf3a837a",
+  "dependency_blob_hashes": {
+    "derail/monitor/esn.py": "d9a27e601ffc160f05e31c36325fa4cc3ae52aea",
+    "derail/common.py": "4042e39f5084d70513a7faae84f7f5a51c96f3bc",
+    "derail/telemetry/adapter.py": "b40a7da4508f2174520fae1bf8bbfb2b6d99cadb",
+    "derail/telemetry/events.py": "5ac69e135299add00025ccbff1c0fea72680680b",
+    "derail/evaluation/metrics.py": "13878db524154198040f7079314fda43fb3b450e",
+    "derail/monitor/deployment_calibration.py": "4c0d155fbc487b33fb7eb330b743dd4435603a32",
+    "derail/experiments/framework_monitor_freeze.py": "a7a7f789b78c53cf4bc46be48a383ba9aca78e8c",
+    "derail/experiments/run_framework_real_tool_analysis.py": "e64420fb2a91d7ecbe422d1d963e53e9a1bc533b",
+    "derail/experiments/run_framework_generalized_monitor_eval.py": "472df6829a2e82bb876d243c6f55cf4929bc493b"
+  },
+  "compatible_dependency_blob_hashes": {
+    "derail/monitor/deployment_calibration.py": [
+      "750798d3a7bc5087c7d63906fd09b1b852b93071"
+    ],
+    "derail/monitor/esn.py": [
+      "5fecd86d253f0540069311ae0220d5f10e73fa24"
+    ],
+    "derail/common.py": [
+      "155386ae7c333402ac254495ce6c49ee7f8180b2",
+      "5faf5de4c2554c7bd24f093adc7f4ce5fbd4492c",
+      "f1dbe4fd382c2bfd8fe4ba273b5b0ec82c6dd090",
+      "3a57e4e5ccf470853033c70e397db08399b2f96f"
+    ],
+    "derail/telemetry/adapter.py": [
+      "cd88de0f9809b2879be59effca8c67e48734bbdf",
+      "a1de607cf72f7f5927eea3c2cf39d74b9cd2496c",
+      "474d662e61d88a3ca25ffdb649ef3c4bc6392c90"
+    ],
+    "derail/experiments/framework_monitor_freeze.py": [
+      "ae425a7e31a01ecfd961cb7149bfa96f0db654b7",
+      "8e5f94572d4fdeb235d7df997022930fbbaa0a57"
+    ]
+  },
+  "reference_scores": {
+    "langgraph-real-context_corruption-000": [
+      0.0,
+      0.0,
+      0.0,
+      33.65716930217651,
+      73.43540746653595,
+      126.8838628124283,
+      202.0621305572637,
+      306.09902286126555,
+      534.0177466143352
+    ],
+    "langgraph-real-context_corruption-001": [
+      0.0,
+      0.0,
+      0.0,
+      42.973356182797026,
+      94.48419660792206,
+      156.59016582229543,
+      227.93041809840457,
+      291.43075521712274
+    ],
+    "langgraph-real-context_corruption-002": [
+      0.0,
+      0.0,
+      0.0,
+      33.59214300731225,
+      71.99637808623683,
+      116.643225334505,
+      176.95503104855948
+    ],
+    "langgraph-real-goal_drift-000": [
+      0.0,
+      0.0,
+      0.0,
+      47.18393269927377,
+      151.73035784963292,
+      311.5522029551586,
+      529.7961279568153,
+      722.0221247339265
+    ],
+    "langgraph-real-goal_drift-001": [
+      0.0,
+      0.0,
+      0.0,
+      27.96315935655889
+    ],
+    "langgraph-real-goal_drift-002": [
+      0.0,
+      0.0,
+      0.0,
+      64.73372664422998,
+      120.27361511680162
+    ],
+    "langgraph-real-healthy-000": [
+      0.0,
+      0.0,
+      0.0,
+      19.60688368555615,
+      49.40076116027638,
+      85.54191247312335
+    ],
+    "langgraph-real-healthy-001": [
+      0.0,
+      0.0,
+      0.0,
+      42.58278836483983,
+      93.8133252760369,
+      155.50137978600037,
+      211.7369548225342
+    ],
+    "langgraph-real-healthy-002": [
+      0.0,
+      0.0,
+      0.0,
+      32.721850870858454,
+      70.35252661045931,
+      122.31409878482825
+    ],
+    "langgraph-real-healthy-003": [
+      0.0,
+      0.0,
+      0.0,
+      43.169345447974464,
+      95.2698212917389,
+      157.35272762254988,
+      212.203333831959
+    ],
+    "langgraph-real-healthy-004": [
+      0.0,
+      0.0,
+      0.0,
+      32.820005644119824,
+      70.79767150478725,
+      123.4450090513193
+    ],
+    "langgraph-real-healthy-005": [
+      0.0,
+      0.0,
+      0.0,
+      42.59379752057228,
+      93.41799017261073,
+      153.87458081068638,
+      241.32385931334355,
+      441.8913199281128,
+      741.7811659350609,
+      1118.229928432736,
+      1551.1193971915395,
+      1888.3773076704222
+    ],
+    "langgraph-real-healthy-006": [
+      0.0,
+      0.0,
+      0.0,
+      35.03069133509437,
+      83.73277526440404,
+      165.75654460811657,
+      317.76810833046693,
+      428.6455648123834
+    ],
+    "langgraph-real-healthy-007": [
+      0.0,
+      0.0,
+      0.0,
+      40.944947317346575,
+      91.30068456685649,
+      151.9529340571741,
+      203.2375165731977
+    ],
+    "langgraph-real-healthy-008": [
+      0.0,
+      0.0,
+      0.0,
+      33.61743437539931,
+      72.11793728288139,
+      150.6901881603929
+    ],
+    "langgraph-real-healthy-009": [
+      0.0,
+      0.0,
+      0.0,
+      43.287402616526215,
+      96.05173538119692,
+      157.19240360084277,
+      212.3436233100138
+    ],
+    "langgraph-real-healthy-010": [
+      0.0,
+      0.0,
+      0.0,
+      33.71610762141853,
+      72.34293610664855,
+      118.8016168266409
+    ],
+    "langgraph-real-healthy-011": [
+      0.0,
+      0.0,
+      0.0,
+      42.31839579506447,
+      93.50664306328997,
+      154.99088581369563,
+      243.24792889054393,
+      451.01003076001746,
+      645.6274969212516
+    ],
+    "langgraph-real-looping-000": [
+      0.0,
+      0.0,
+      0.0,
+      34.54400674805067,
+      74.12852791546084,
+      120.30145918300683,
+      173.44214947989687,
+      233.90988564017144,
+      303.155007043061,
+      381.2287437679017,
+      466.2324685038285,
+      560.0144153591209
+    ],
+    "langgraph-real-looping-001": [
+      0.0,
+      0.0,
+      0.0,
+      42.441624675894666,
+      93.72056915561045,
+      154.29540961647658,
+      224.89931695635968,
+      286.57317947157566
+    ],
+    "langgraph-real-looping-002": [
+      0.0,
+      0.0,
+      0.0,
+      33.96436358576798,
+      72.24098240480609,
+      116.59477004209845,
+      170.24617050316135,
+      231.6489246852177,
+      298.4411976288093,
+      375.44331590404784,
+      483.933160035615
+    ],
+    "langgraph-real-tool_cascade-000": [
+      0.0,
+      0.0,
+      0.0,
+      32.527414997183485,
+      80.30773611556431,
+      147.63729884399635
+    ],
+    "langgraph-real-tool_cascade-001": [
+      0.0,
+      0.0,
+      0.0,
+      42.574987524703204,
+      93.86564323187665,
+      146.95685734242363,
+      192.8851720974326
+    ],
+    "langgraph-real-tool_cascade-002": [
+      0.0,
+      0.0,
+      0.0,
+      33.48343490708868,
+      81.13721985663807,
+      137.10803565923771
+    ],
+    "autogen-real-context_corruption-000": [
+      0.0,
+      0.0,
+      0.0,
+      39.8556181411744,
+      106.17955329696886,
+      153.35170913938668,
+      213.70585874255354,
+      314.26907551341554,
+      475.8765307782335,
+      620.2463405875419,
+      709.8089875909504,
+      796.0721443470195
+    ],
+    "autogen-real-context_corruption-001": [
+      0.0,
+      0.0,
+      0.0,
+      43.8070030712247,
+      112.5119996513031,
+      212.28668599877307,
+      356.79050954021886,
+      460.96388255772354,
+      572.0878218815378,
+      664.557397458169,
+      759.3382961553658,
+      868.5829932946398
+    ],
+    "autogen-real-context_corruption-002": [
+      0.0,
+      0.0,
+      0.0,
+      39.45700930574937,
+      78.74934960544006,
+      148.16157327367762,
+      205.36810087160327,
+      269.7322566905674,
+      344.4340014487672,
+      401.9531825389364
+    ],
+    "autogen-real-goal_drift-000": [
+      0.0,
+      0.0,
+      0.0,
+      42.30609231816159
+    ],
+    "autogen-real-goal_drift-001": [
+      0.0,
+      0.0,
+      0.0,
+      46.784626197471155,
+      101.0576285620283,
+      173.0450966333599,
+      230.7176361507459,
+      274.0548087989183
+    ],
+    "autogen-real-goal_drift-002": [
+      0.0,
+      0.0,
+      0.0,
+      37.125337828244604
+    ],
+    "autogen-real-healthy-000": [
+      0.0,
+      0.0,
+      0.0,
+      33.36556237420822
+    ],
+    "autogen-real-healthy-001": [
+      0.0,
+      0.0,
+      0.0,
+      42.44337564302894,
+      92.99611977940478,
+      152.5743455339771,
+      221.11650739180126,
+      299.1780936287405,
+      372.5025318384023
+    ],
+    "autogen-real-healthy-002": [
+      0.0,
+      0.0,
+      0.0,
+      33.42586920704874
+    ],
+    "autogen-real-healthy-003": [
+      0.0,
+      0.0,
+      0.0,
+      41.159543196238545,
+      90.44471371881986,
+      148.25141659338584,
+      217.72060299179276,
+      264.25207730892043
+    ],
+    "autogen-real-healthy-004": [
+      0.0,
+      0.0,
+      0.0,
+      43.22160018139819,
+      114.53271547624196,
+      251.4781024429658,
+      396.1728806557625
+    ],
+    "autogen-real-healthy-005": [
+      0.0,
+      0.0,
+      0.0,
+      45.652307471133724,
+      111.76273526808984,
+      247.3666038369526,
+      468.2908262687426,
+      700.7773380680742,
+      823.355094128457
+    ],
+    "autogen-real-healthy-006": [
+      0.0,
+      0.0,
+      0.0,
+      33.711107526829714
+    ],
+    "autogen-real-healthy-007": [
+      0.0,
+      0.0,
+      0.0,
+      43.73091434295719,
+      94.77807824600934,
+      155.1451862184162,
+      210.9486267175318
+    ],
+    "autogen-real-healthy-008": [
+      0.0,
+      0.0,
+      0.0,
+      33.59287952889028,
+      75.72547842838934
+    ],
+    "autogen-real-healthy-009": [
+      0.0,
+      0.0,
+      0.0,
+      42.8426682264985,
+      94.07492702860651,
+      154.41237608444777,
+      209.14569321637777
+    ],
+    "autogen-real-healthy-010": [
+      0.0,
+      0.0,
+      0.0,
+      33.63104045971215
+    ],
+    "autogen-real-healthy-011": [
+      0.0,
+      0.0,
+      0.0,
+      46.02598101410369,
+      122.82207768674394,
+      306.8421970991683,
+      485.3993276560608
+    ],
+    "autogen-real-looping-000": [
+      0.0,
+      0.0,
+      0.0,
+      41.867567447688906,
+      104.4624976316183,
+      150.5242440140498,
+      201.20081288854433,
+      262.8684741734636,
+      335.57979468083056,
+      418.6638879193944,
+      508.93477434505064,
+      603.6287826813971
+    ],
+    "autogen-real-looping-001": [
+      0.0,
+      0.0,
+      0.0,
+      41.85186113697387,
+      90.23122617960652,
+      144.3053043406963,
+      207.21737594037376,
+      279.53410123146716,
+      359.1117085976118,
+      445.0229455528471,
+      535.9948540051818,
+      628.696366035765
+    ],
+    "autogen-real-looping-002": [
+      0.0,
+      0.0,
+      0.0,
+      33.34177146893322,
+      69.8824344304293,
+      117.9894721286652,
+      177.9505605159356,
+      250.64158190118948,
+      331.82192377095384,
+      411.72043914534095
+    ],
+    "autogen-real-tool_cascade-000": [
+      0.0,
+      0.0,
+      0.0,
+      50.621421055975745
+    ],
+    "autogen-real-tool_cascade-001": [
+      0.0,
+      0.0,
+      0.0,
+      43.41350132427678,
+      95.88755814157578,
+      158.4609162850362,
+      208.6665715768881
+    ],
+    "autogen-real-tool_cascade-002": [
+      0.0,
+      0.0,
+      0.0,
+      56.3787518820016
+    ]
+  },
+  "digest_rtol": 1e-06,
+  "digest_atol": 1e-09,
+  "digest_corpora": [
+    "langgraph7b_real",
+    "autogen7b_real"
+  ],
+  "proofs": [
+    {
+      "commit": "0d5cb2e8bdeefc0d2a098138a72877028bd9925a",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/monitor/deployment_calibration.py -> 750798d3a7bc"
+      ]
+    },
+    {
+      "commit": "404bee6982b125006de8c61468a054dcab9e151e",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/monitor/esn.py -> 5fecd86d253f"
+      ]
+    },
+    {
+      "commit": "90ca7772d3e9f43593573e796b8c4f23da4b71b8",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/common.py -> 155386ae7c33",
+        "derail/telemetry/adapter.py -> cd88de0f9809"
+      ]
+    },
+    {
+      "commit": "90ca7772d3e9f43593573e796b8c4f23da4b71b8",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/common.py -> 5faf5de4c255",
+        "derail/telemetry/adapter.py -> a1de607cf72f"
+      ]
+    },
+    {
+      "commit": "90ca7772d3e9f43593573e796b8c4f23da4b71b8",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/experiments/framework_monitor_freeze.py -> ae425a7e31a0"
+      ]
+    },
+    {
+      "commit": "ec53cf7bcab4b3fd7330843cd30ef3fef2d1c70c",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/common.py -> f1dbe4fd382c",
+        "derail/telemetry/adapter.py -> 474d662e61d8",
+        "derail/experiments/framework_monitor_freeze.py -> 8e5f94572d4f"
+      ]
+    },
+    {
+      "commit": "393dccfa630685a5b926361f8d3bea52c247db2a",
+      "digest": "26a430f1f069e370c22478ce3599be56cdde1b5ef935d4d6c48c22d9024e812d",
+      "added": [
+        "derail/common.py -> 3a57e4e5ccf4"
+      ]
+    }
+  ]
+}

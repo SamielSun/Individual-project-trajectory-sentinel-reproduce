@@ -1,0 +1,4 @@
+dataset,n_episodes,n_steps,v4_grounding_build_us_per_step,v4_grounding_feature_bytes_per_step,v4_grounding_dims,v5_goal_build_us_per_step,v5_goal_feature_bytes_per_step,v5_goal_dims
+langgraph7b_real2,25,174,807.5827586828549,480.0,60,832.727011333316,512.0,64
+autogen7b_real2,25,148,802.1682434765672,480.0,60,805.2716214946043,512.0,64
+real_research7b_long_drift,25,276,793.0405799002535,480.0,60,822.9471013823902,512.0,64
