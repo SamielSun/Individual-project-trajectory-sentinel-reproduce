@@ -32,15 +32,19 @@ git log --all -p | Select-String -Pattern "sk-|api[_-]?key" -CaseSensitive:$fals
 # expected: no output — this reproduction needs no API key at all
 ```
 
-## 2. Fill the two placeholders (2 min)
+## 2. Fill the presentation link (2 min, after recording)
 
-`<GITHUB-LINK>` and `<VIDEO-LINK>` appear in exactly three places:
+The repository link and the author line are already in: `report/main.tex` carries
+`Name: Sun Yusu`, `Student ID: 1155267751` and the fork URL, and the deck's last slide carries the
+repository URL too.
 
-* `report/main.tex` (title block)
-* `README.md`
-* `slides/make_deck.py` (last slide)
+The **only** placeholder left is the recorded presentation. Once the video is uploaded, replace
 
-Fill the GitHub link now; the video link after step 3. Then rebuild:
+```
+Recorded presentation: \texttt{(link to be added --- recording in progress)}
+```
+
+in `report/main.tex` (title block) with the URL, then rebuild:
 
 ```powershell
 cd report; latexmk -pdf main.tex; cd ..
